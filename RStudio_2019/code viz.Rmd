@@ -1,0 +1,19 @@
+---
+title: "Untitled"
+author: "Kelly Bodwin"
+date: "January 16, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, eval = FALSE}
+pnorm()
+qnorm()
+pt()
+qt()
+t.test()
+```
+

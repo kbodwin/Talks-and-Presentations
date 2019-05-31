@@ -1,0 +1,439 @@
+---
+title: "Introductory Statistics <br> with R"
+author: Kelly Bodwin <br> Cal Poly - San Luis Obispo <br> contact -  kbodwin@calpoly.edu,   @kellybodwin
+date: 
+output: 
+  ioslides_presentation:
+    logo: ../Images/CalPoly_Seal.png
+    incremental: false
+  # beamer_presentation:
+  #   theme: "boxes"
+  #   colortheme: "beaver"
+  #   fonttheme: "structurebold"
+---
+
+
+## Outline {data-background=/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/burger2.jpg data-background-position=75% data-background-size=240px}
+
+1. R in Courses at Cal Poly
+<br>
+
+2. Advantages
+<br>
+
+3. Challenges
+<br>
+
+4. Lab Assignments
+<br>
+
+5. Shiny Pre-Lab Exercises
+<br>
+
+6. Student Outcomes
+<br>
+
+7. Take-Home Messages
+
+
+## Courses with R at Cal Poly
+
+- Stat 331: Statistical Computing with R
+    
+<br>
+
+- Upper-level Stat Courses: Most profs use R
+
+<br>
+
+- Introductory "service" courses for non-majors
+    + No CS or Stat background or prereqs
+    + No Disagreement: Software should be used
+    + Debatable: R should be used
+    + Unpopular: Students should write code
+
+# Advantages of Coding in Intro Classes
+
+
+## Pedagogical:
+
+<div align=center;max-width:300px;float:left>
+![](/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/tidy.png)
+NOT
+</div>
+<div align=center;max-width:300px;float:right>
+![](/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/ttest_steps.jpg)
+</div>
+
+## Conceptual:
+
+"Imagine that you calculate a sample mean for a population..."
+
+VERSUS
+
+```{r}
+head(iris$Sepal.Length)
+mean(iris$Sepal.Length)
+```
+
+
+
+## Real-world relevance:
+
+<div align=center;max-width:700px;float:center>
+![](/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/drake.jpg)
+</div>
+
+
+# Challenges
+
+
+## Pedagogical:
+
+How to involve coding in teaching... <br> ...without teaching coding
+
+<div align=center>
+```
+"Why are we learning this if it's not on the test?"
+
+  - Several students
+```
+</div>
+
+
+## Logistical: Installation and File Management
+
+ <div align=center>
+"Where is my downloads folder?"
+  - Generation Z, ages 17-23
+  </div>
+  <br>
+<div align=center;style="max-width:500px">
+![](/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/confused_grandma.jpg)
+</div>
+
+## Motivational:  Stats are scary!  Code is scary!
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+path = "C:/Users/kbodwin/Dropbox/Student_Surveys"
+
+pre1 <- read_tsv(paste0(path, "/Pre_Lab_Questionnaire_1.txt"))
+pre2 <- read_tsv(paste0(path, "/Pre_Lab_Questionnaire_2.txt"))
+pre3 <- read_tsv(paste0(path, "/Pre_Lab_Questionnaire_3.txt"))
+
+pres <- rbind(
+  pre1 %>% rename(Answer = `Q03_nervous`) %>% select(Answer) %>% mutate(Lab = 1),
+  pre2 %>% rename(Answer = `Q09_nervous`) %>% select(Answer) %>% mutate(Lab = 2),
+  pre3 %>% rename(Answer = `Q05_nervous`) %>% select(Answer) %>% mutate(Lab = 3)
+)
+
+pres %>%
+  ggplot(aes(x = Lab, fill = Answer)) + geom_bar(position = "fill") +
+  ggtitle("Q: I feel nervous about my ability to complete the Lab Assignment.") +
+  scale_fill_brewer(type = "div")
+```
+
+(Stat 218, Fall 2018)
+
+## A few great resources
+
+Great helper resources:
+
+- Cloud servers:
+    + RStudio Cloud + RStudio Connect
+    + Amazon Web Services
+    + University hosted servers
+
+- Notebooks  (Markdown, Jupyter)
+- GitHub Classroom
+- `usethis` and other helper packages
+
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE, include = FALSE}
+library(tidyverse)
+path = "C:/Users/kbodwin/Dropbox/Student_Surveys"
+
+pre1 <- read_tsv(paste0(path, "/Pre_Lab_Questionnaire_1.txt"))
+pre2 <- read_tsv(paste0(path, "/Pre_Lab_Questionnaire_2.txt"))
+pre3 <- read_tsv(paste0(path, "/Pre_Lab_Questionnaire_3.txt"))
+
+pres <- rbind(
+  pre1 %>% rename(Answer = `Q03_nervous`) %>% select(Answer) %>% mutate(Lab = 1),
+  pre2 %>% rename(Answer = `Q09_nervous`) %>% select(Answer) %>% mutate(Lab = 2),
+  pre3 %>% rename(Answer = `Q05_nervous`) %>% select(Answer) %>% mutate(Lab = 3)
+)
+
+pres %>%
+  ggplot(aes(x = Lab, fill = Answer)) + geom_bar(position = "fill") +
+  ggtitle("Q: I feel nervous about my ability to complete the Lab Assignment.") +
+  scale_fill_brewer(type = "div", direction = -1)
+```
+
+
+# Lab Assignments
+
+## Example: Wine data
+
+```{r, include = FALSE}
+# Load the data
+wine = read.csv("https://www.dropbox.com/s/i83wfy7qhb3wf8s/redWines.csv?dl=1")
+```
+
+```{r}
+str(wine)
+```
+
+
+## V1: I supply the code
+
+Do a hypothesis test at the 0.05 level, to see if the bad wines and good wines have the same pH level or not.   What do you conclude?
+
+```{r}
+t.test(pH ~ quality, data = wine, alternative = "two.sided")
+```
+
+
+## V2: Reproduce my process
+
+Do a hypothesis test at the 0.05 level, to see if the bad wines and good wines have the same pH level or not.   What do you conclude?
+
+```{r, eval = FALSE}
+t.test(pH ~ quality, data = wine, alternative = "two.sided")
+
+```
+
+Do a t-test comparing `density` across good and bad wines at the 0.05 level. 
+
+```{r}
+### YOUR CODE HERE
+```
+
+
+## V3: Students as statisticians
+
+Choose three chemical attributes of wine that you are interested in.  
+<br>
+For each of your chosen chemical properties, perform an appropriate hypothesis test to compare good and bad wines.  
+<br>
+Discuss each of the tests - what do you conclude about these chemical properties?
+
+# Shiny Pre-Lab Exercises
+
+
+## 
+
+<div align=center>
+```
+"Tools for learning statistics vs. Tools for doing statistics:
+
+We need a bridge between the two"
+
+  - Amelia McNamara, ICOTS 2018
+```
+</div>
+
+
+## Principles
+
+A tool to ease the transition for beginners should...
+
+1. Produce real and interesting data results without advance training, like an applet.
+
+2. Require students to generate queries, not simply select from options, like true coding.
+
+3. Make clear what is a built-in function and what input they get to choose.
+
+4. Link concepts and questions from class to digital input/output.
+
+# Student Outcomes
+
+## Students recognize applicability
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+mid1 <- read_tsv(paste0(path,"/Mid_Lab_Questionnaire_1.txt"))
+mid2 <- read_tsv(paste0(path,"/Mid_Lab_Questionnaire_2.txt"))
+mid3 <- read_tsv(paste0(path,"/Mid_Lab_Questionnaire_3.txt"))
+
+# Help in real world
+mid_rw <- rbind(
+  mid1 %>% rename(Answer = `Q02_real world`) %>% select("Answer") %>% na.omit() %>% mutate(Lab = 1),
+  mid2 %>% rename(Answer = `Q08_real world`) %>% select("Answer")%>% na.omit() %>% mutate(Lab = 2),
+  mid3 %>% rename(Answer = `Q04_real world`) %>% select("Answer")%>% na.omit() %>% mutate(Lab = 3)
+)
+
+ggplot(mid_rw, aes(x = Lab, fill = Answer)) + geom_bar(position = "fill") + ggtitle("Q: The in-class lab activity helped me understand how statistical analyses \n are conducted in the real world.")  +
+  scale_fill_brewer(type = "div", direction = -1)             
+ 
+```
+
+(Stat 218, Fall 2018)
+
+## Students recognize value
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+
+mid_concepts <- rbind(
+  mid1 %>% rename(Answer = `Q03_concept help`) %>% select("Answer") %>% na.omit() %>% mutate(Lab = 1),
+  mid2 %>% rename(Answer = `Q09_ex_concepts`) %>% select("Answer")%>% na.omit() %>% mutate(Lab = 2),
+  mid3 %>% rename(Answer = `Q05_concepts`) %>% select("Answer")%>% na.omit() %>% mutate(Lab = 3)
+)
+
+ggplot(mid_concepts, aes(x = Lab, fill = Answer)) + geom_bar(position = "fill") + ggtitle("Q: The in-class lab activity helped me understand the concepts \n from this week's material.")  +
+  scale_fill_brewer(type = "div", direction = -1)    
+```
+
+
+(Stat 218, Fall 2018)
+
+
+
+## Students are proud of their work
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+post2 <- read_tsv(paste0(path,"/Post_Lab_Questionnaire_2.txt"))
+
+post2 <- post2 %>% select(`Q00_pride`) %>% mutate(
+  Pride = factor(`Q00_pride`),
+  Pride = factor(Pride, levels = c(levels(Pride), "5 : Strongly Disagree"))
+)
+
+post2 %>% na.omit() %>%
+ggplot(aes(x = Pride, fill = Pride)) + geom_bar() +
+  ggtitle("Q: I feel proud of the work I produced on the Lab Assignment.") +
+  xlab("Response") + scale_x_discrete(drop=FALSE)  + scale_colour_hue(drop = FALSE)  +
+  scale_fill_brewer(type = "div", direction = -1)
+```
+
+(Stat 218, Fall 2018)
+
+## Students gained skills
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+concepts <- read.csv(paste0(path,"/concepts1.csv"))
+
+concepts %>% na.omit() %>% mutate(
+  Phase = factor(Phase, c("Before", "Midpoint", "After"))
+) %>%
+  ggplot(aes(x = Phase, fill = `identify.param.stat`)) + geom_bar(position = "fill") +
+  ggtitle("Q: I feel confident in my ability to read and interpret a barplot.") + 
+  labs(fill = "Answer") +
+  scale_fill_brewer(type = "div", direction = -1)
+```
+
+
+(Stat 218, Fall 2018)
+    
+
+    
+## Exercises helped the transition to labs
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+halfs <- read_csv(paste0(path,"/halfs.csv"))
+
+halfs %>% select(-Lecture) %>% gather(key = Type, value = Answer, -Quarter) %>% mutate(
+  Quarter = factor(Quarter, levels = c("Winter 2018", "Fall 2018"))
+) %>%
+  ggplot(aes(x = Quarter, fill = Answer)) + geom_bar(position = "fill") + facet_wrap(~Type) + ggtitle("Q: The [homework/lab] assignments helped me understand and practice the material.") +
+  scale_fill_brewer(type = "div", direction = -1)
+
+```
+
+
+(Stat 218)
+
+# Take-Home Messages
+
+## What worked
+
+- Students left class with the ability to actually analyze data from scratch.
+
+<br>
+
+- Anecdotally: deeper understanding of *some* concepts.
+
+<br>
+
+- Student satisfaction with tangible results.
+
+
+## What needs work
+
+
+- Encouraging thinking through code versus guess-and-check with copy-paste.
+
+<br>
+
+- Motivating the need for coding to the *students*
+
+(Disconnect between class time allocation and tested material.)
+
+<br>
+
+- Logistics of creating/hosting exercises:  \{demoR\} and \{shindig\}!
+
+
+## Advice
+
+- Growing pains and logistical headache are worth it.
+
+
+<br>
+
+- Introductory, non-major students *can* handle R!
+
+<br>
+<div align="center">
+<img src="/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/just-do-it.jpg" alt="drawing" width="500"/>
+</div>
+
+
+## My unpopular opinion
+
+<font color="DodgerBlue" face="courier" type="bold">
+<font size=10>
+
+Computing isn't a supplement to the material; it *is* the material.
+
+If we aren't teaching them to think computationally, 
+we aren't actually teaching them statistics.
+</font>
+</font>
+
+## Hadley tax
+
+<div align=center>
+```
+"Not all statisticians should be coders, 
+but all statisticians should code."
+
+  - Hadley Wickham, ICOTS 2018
+```
+</div>
+
+## Thank you!
+
+Find this project:   
+<a href="github.com/kbodwin/Introductory-Statistics-Labs">github.com/kbodwin/Introductory-Statistics-Labs</a>
+
+Coming soon: 
+
+- \{demoR\}      (JSM 2019)
+
+- \{shindig\}    (Fall 2019?)
+
+Try a lab: 
+  <br> <a href="https://kbodwin.shinyapps.io/Lab_Exercise_CatVars2">https://kbodwin.shinyapps.io/CatVars2</a>
+  <br> <a href="https://kbodwin.shinyapps.io/Lab_Exercise_tDist">https://kbodwin.shinyapps.io/Lab_Exercise_tDist</a>
+  <br> <a href="https://kbodwin.shinyapps.io/Lab_Exercise_t_tests2">https://kbodwin.shinyapps.io/t_tests2</a>
+  
+
+Contact:
+<br> kbodwin@calpoly.edu
+<br> <a href="www.calpoly.edu/~kbodwin">calpoly.edu/~kbodwin</a>
+<br> @kellybodwin
+  
+
+
+
