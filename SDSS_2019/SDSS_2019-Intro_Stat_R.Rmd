@@ -401,7 +401,7 @@ we aren't actually teaching them statistics.
 </font>
 </font>
 
-## Hadley tax
+## Final pitch:
 
 <div align=center>
 ```
@@ -412,16 +412,20 @@ but all statisticians should code."
 ```
 </div>
 
-## Thank you!
-
-Find this project:   
-<a href="github.com/kbodwin/Introductory-Statistics-Labs">github.com/kbodwin/Introductory-Statistics-Labs</a>
-
 Coming soon: 
 
 - \{demoR\}      (JSM 2019)
 
 - \{shindig\}    (Fall 2019?)
+
+
+## Thank you!
+
+Slides:
+<a href="github.com/kbodwin/Talks-and-Presentations/SDSS_2019/">github.com/kbodwin/Talks-and-Presentations/SDSS_2019/</a>
+
+Find this project:   
+<a href="github.com/kbodwin/Introductory-Statistics-Labs">github.com/kbodwin/Introductory-Statistics-Labs</a>
 
 Try a lab: 
   <br> <a href="https://kbodwin.shinyapps.io/Lab_Exercise_CatVars2">https://kbodwin.shinyapps.io/CatVars2</a>
