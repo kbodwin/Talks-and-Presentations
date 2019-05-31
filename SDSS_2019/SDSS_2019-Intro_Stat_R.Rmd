@@ -422,7 +422,7 @@ Coming soon:
 ## Thank you!
 
 Slides:
-<a href="github.com/kbodwin/Talks-and-Presentations/SDSS_2019/">github.com/kbodwin/Talks-and-Presentations/SDSS_2019/</a>
+<a href="https://github.com/kbodwin/Talks-and-Presentations/tree/master/SDSS_2019">github.com/kbodwin/Talks-and-Presentations/</a>
 
 Find this project:   
 <a href="github.com/kbodwin/Introductory-Statistics-Labs">github.com/kbodwin/Introductory-Statistics-Labs</a>
