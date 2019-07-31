@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>demoR</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kelly Bodwin" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# demoR
+## <img src='demoR_hex.png' style='width:128px;height:138px;'>⚔<br>tools for presenting R code
+### Kelly Bodwin
+### California Polytechnic State University
+### 2019/07/30
+
+---
+
+
+
+
+
+
+
+
+class: invert, center, middle
+
+# Why demoR? 
+
+### Because presenting R source code is hard
+
+---
+
+Let's learn about piping in R!
+
+&lt;code&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
+
+```
+## # A tibble: 3 x 2
+##   Species    Avg.Size
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 setosa         5.01
+## 2 versicolor     5.94
+## 3 virginica      6.59
+```
+
+
+
+---
+
+class: center, middle
+
+# Back in the "bad old days"....
+
+### Formatting by hand
+
+---
+
+In your code chunk:
+
+
+
+
+```r
+iris %&gt;%
+  group_by(Species) %&gt;%
+  summarize(Avg.Size = mean(Sepal.Length))
+```
+
+
+
+
+
+In your document:
+
+
+
+
+
+```r
+&lt;span style color='cornflowerblue'&gt;iris&lt;/span&gt; 
+&lt;span style background-color='yellow'&gt;%&gt;%&lt;/span&gt;
+  &lt;span style color='darkred'&gt;group_by&lt;/span&gt;
+  (Species) 
+  &lt;span style background-color='yellow'&gt;%&gt;%&lt;/span&gt;
+  &lt;span style background-color='darkred'&gt;summarize&lt;/span&gt; 
+  &lt;span style background-color='yellow'&gt;%&gt;%&lt;/span&gt;
+  (Avg.Size = 
+  &lt;span style background-color='darkred'&gt;mean
+   (Sepal.Length))
+```
+
+
+
+--
+... and what if you decide to change something later?
+
+---
+
+background-image: url(https://media.giphy.com/media/lJnAXeJO8tE7E37mxq/giphy.gif)
+
+# Copy-pasting code to text is bad.
+
+---
+
+My source code: 
+
+
+
+```r
+demo_code('
+
+iris %&gt;%
+  group_by(Species) %&gt;%
+  summarize(Avg.Size = mean(Sepal.Length))
+
+') %&gt;%
+  hlt_fixed("%&gt;%") %&gt;%
+  hlt_funs(color = "darkred") %&gt;%
+  hlt_fixed("iris", color = "cornflowerblue")
+```
+
+
+
+---
+
+class: center, middle
+
+# How it works
+
+---
+
+class: invert, center, middle
+
+# `demo_code` object
+
+### Formatted source code string
+### Code output
+### (Various options)
+
+---
+
+
+class: center, middle
+
+# Three ways to create a demo_code object:
+
+---
+
+class: invert, center, middle
+
+# 1
+## Directly from a string
+
+---
+
+
+
+```r
+demo_code('
+
+iris %&gt;%
+  group_by(Species) %&gt;%
+  summarize(Avg.Size = mean(Sepal.Length))
+
+') %&gt;%
+  hlt_fixed("%&gt;%") %&gt;%
+  hlt_funs(color = "darkred") %&gt;%
+  hlt_fixed("iris", color = "cornflowerblue")
+```
+
+&lt;code&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
+
+```
+## # A tibble: 3 x 2
+##   Species    Avg.Size
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 setosa         5.01
+## 2 versicolor     5.94
+## 3 virginica      6.59
+```
+
+
+
+
+---
+
+# demo_code from string
+
+### Pro: Ease of use
+--
+
+* quick to type
+
+--
+
+* contained in single chunk
+
+--
+
+* intuitive object type
+
+--
+
+* (future):  specific tagging
+
+--
+
+### Con:  Code testing
+
+--
+
+* R recognizes it as a string
+
+---
+
+class: invert, center, middle
+
+# 2 
+## Reference a labelled code chunk
+
+---
+
+### Code chunk with label "iris_size"   👇 
+
+
+
+```r
+iris %&gt;%
+  group_by(Species) %&gt;%
+  summarize(Avg.Size = mean(Sepal.Length))
+```
+
+
+
+--
+
+### Code chunk to make demo 👇  
+
+
+
+```r
+demo_chunk("iris_size") %&gt;%
+  hlt_fixed("%&gt;%") %&gt;%
+  hlt_funs(color = "darkred") %&gt;%
+  hlt_fixed("iris", color = "cornflowerblue")
+```
+
+&lt;code&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
+
+```
+## # A tibble: 3 x 2
+##   Species    Avg.Size
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 setosa         5.01
+## 2 versicolor     5.94
+## 3 virginica      6.59
+```
+
+
+
+---
+
+### Pro: Ease of use
+--
+
+* Chunks behave like chunks
+
+--
+
+* Multiple references to the same chunk is ok
+
+--
+
+### Con:  Two chunks
+
+--
+
+* Don't forget to `include = FALSE` on original
+
+--
+
+* Don't forget to `echo = FALSE` on second chunk
+
+
+---
+
+class: invert, center, middle
+
+# (3)
+## chunk option + comment tagging
+
+---
+
+### Option: `demo = TRUE`
+
+
+
+```r
+iris %&gt;% 
+* group_by(Species) %&gt;%
+  summarize(Avg.Size = mean(Sepal.Length))  #&lt;&lt; 1
+
+##&lt;&lt; hlt_args(color = "darkred")
+##&lt;&lt; hlt_tag(1, "Avg.Size")
+```
+
+
+
+--
+
+## This is a future plan!  
+
+## Request:  syntax feedback.
+
+---
+
+
+class: invert, center, middle
+
+# the `hlt_*` functions
+
+---
+
+# `hlt_*`
+
+* `hlt_regexp`: any regular expression
+
+* `hlt_fixed`: any fixed string
+
+* `hlt_funs`: functions
+
+* `hlt_args`: function arguments in form `x = `
+
+* `hlt_input_vals`: input to functions
+
+---
+
+# Disclaimer
+
+![](http://vmartinezdelacruz.com/wp-content/uploads/2013/03/regex-xkcd.png)
+
+---
+
+class: center, middle
+
+# Tips and Tricks
+
+---
+
+class: invert, center, middle
+
+# 1
+### Code in `demo_code` runs "as normal"
+
+---
+# Object definition works
+
+
+
+```r
+demo_code('foo &lt;- 10') %&gt;% hlt_fixed("foo")
+```
+
+&lt;code&gt;&lt;span style='background-color:#ffff7f'&gt;foo&lt;/span&gt; &lt;- 10&lt;/code&gt;
+
+```r
+foo + 5
+```
+
+
+
+```
+## [1] 15
+```
+
+
+
+### Don't interrupt your analysis flow!
+
+---
+
+class: invert, center, middle
+
+# 2
+### Running in console "works"
+
+---
+
+class: invert, center, middle
+
+# 3
+### Useful for showing "broken" code
+
+---
+
+# Teaching common errors
+
+What happens when you forget a parenthesis?
+
+
+
+```r
+demo_code('
+          
+plot(1:10
+          
+          ') %&gt;% hlt_fixed("(")
+```
+
+&lt;code&gt;plot&lt;span style='background-color:#ffff7f'&gt;(&lt;/span&gt;1:10&lt;/code&gt; 
+
+```
+## Error: &lt;text&gt;:2:0: unexpected end of input
+## 1: plot(1:10
+##    ^
+```
+
+
+
+
+
+---
+
+class: invert, center, middle
+
+# 4
+### Masking
+
+---
+
+# Teaching exercises
+
+Fill in the blank:
+
+
+
+```r
+demo_code('
+
+iris %&gt;% 
+  group_by(Species) %&gt;%
+  summarize(Avg.Size = mean(Sepal.Length))
+
+') %&gt;%
+  mask("Species", background = "pink")
+```
+
+&lt;code&gt;iris %&gt;% &lt;br&gt;  group_by(&lt;span style='color:transparent;background-color:pink'&gt;Species&lt;/span&gt;) %&gt;%&lt;br&gt;  summarize(Avg.Size = mean(Sepal.Length))&lt;/code&gt; 
+
+```
+## # A tibble: 3 x 2
+##   Species    Avg.Size
+##   &lt;fct&gt;         &lt;dbl&gt;
+## 1 setosa         5.01
+## 2 versicolor     5.94
+## 3 virginica      6.59
+```
+
+
+
+(Thanks, Alison!)
+
+---
+
+class: invert, center, middle
+
+# 5
+### Presentations from R Markdown
+
+---
+
+# Making slides
+
+### `demoR` works in *any* R Markdown-sourced context
+
+--
+
+![](https://media3.giphy.com/media/jrvfKvr2mmcFO/giphy.gif)
+
+--
+
+Formatting is hard. 🙍
+
+---
+
+class: invert, center, middle
+
+# Takeaways
+
+---
+
+class: invert, center, middle
+
+# You can use demoR now!
+
+
+
+```r
+devtools::install_github("kbodwin/demoR")
+```
+
+
+
+### PRs and Issues = ❤️
+
+---
+
+class: invert, center, middle
+
+# Feedback and requests welcome!
+
+![](https://media2.giphy.com/media/uRb2p09vY8lEs/giphy.gif)
+
+---
+
+# Thank you!
+
+--
+
+* Hunter Glanz, co-dev of `demoR`
+    + Coming up in just 30 minutes!
+    
+--
+
+* YiHui Xie for knitr and R Markdown
+    + What a genius
+    
+--
+
+* Garrick Aden-Buie for highlighting in remark.js
+    + JavaScript wizard
+
+--
+
+* Alison Hill for `mask()` 
+    + (and moral support)
+    
+--
+
+* JSM organizers
+   + especially Daniel Kaplan!
+
+---
+
+## Find me on the interwebs
+
+* GitHub:  &lt;a href="www.github.com/kbodwin/demoR"&gt;kbodwin&lt;/a&gt;
+
+* Email:   &lt;a href="mailto:kbodwin@calpoly.edu"&gt;kbodwin@calpoly.edu&lt;/a&gt;
+
+* Twitter: &lt;a href="www.twitter.com/kellybodwin"&gt;@kellybodwin&lt;/a&gt;
+
+* Website: &lt;a href="www.kelly-bodwin.com"&gt;kelly-bodwin.com&lt;/a&gt;
+
+---
+
+![](last_slide.png)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
