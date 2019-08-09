@@ -35,7 +35,7 @@ class: invert, center, middle
 
 Let's learn about piping in R!
 
-&lt;code&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
+&lt;code class ='r hljs remark-code'&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
 
 ```
 ## # A tibble: 3 x 2
@@ -171,7 +171,7 @@ iris %&gt;%
   hlt_fixed("iris", color = "cornflowerblue")
 ```
 
-&lt;code&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
+&lt;code class ='r hljs remark-code'&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
 
 ```
 ## # A tibble: 3 x 2
@@ -248,7 +248,7 @@ demo_chunk("iris_size") %&gt;%
   hlt_fixed("iris", color = "cornflowerblue")
 ```
 
-&lt;code&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
+&lt;code class ='r hljs remark-code'&gt;&lt;span style='color:cornflowerblue'&gt;iris&lt;/span&gt; &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;group_by&lt;/span&gt;(Species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;  &lt;span style='color:darkred'&gt;summarize&lt;/span&gt;(Avg.Size = &lt;span style='color:darkred'&gt;mean&lt;/span&gt;(Sepal.Length))&lt;/code&gt; 
 
 ```
 ## # A tibble: 3 x 2
@@ -364,7 +364,7 @@ class: invert, center, middle
 demo_code('foo &lt;- 10') %&gt;% hlt_fixed("foo")
 ```
 
-&lt;code&gt;&lt;span style='background-color:#ffff7f'&gt;foo&lt;/span&gt; &lt;- 10&lt;/code&gt;
+&lt;code class ='r hljs remark-code'&gt;&lt;span style='background-color:#ffff7f'&gt;foo&lt;/span&gt; &lt;- 10&lt;/code&gt;
 
 ```r
 foo + 5
@@ -410,7 +410,7 @@ plot(1:10
           ') %&gt;% hlt_fixed("(")
 ```
 
-&lt;code&gt;plot&lt;span style='background-color:#ffff7f'&gt;(&lt;/span&gt;1:10&lt;/code&gt; 
+&lt;code class ='r hljs remark-code'&gt;plot&lt;span style='background-color:#ffff7f'&gt;(&lt;/span&gt;1:10&lt;/code&gt; 
 
 ```
 ## Error: &lt;text&gt;:2:0: unexpected end of input
@@ -448,7 +448,7 @@ iris %&gt;%
   mask("Species", background = "pink")
 ```
 
-&lt;code&gt;iris %&gt;% &lt;br&gt;  group_by(&lt;span style='color:transparent;background-color:pink'&gt;Species&lt;/span&gt;) %&gt;%&lt;br&gt;  summarize(Avg.Size = mean(Sepal.Length))&lt;/code&gt; 
+&lt;code class ='r hljs remark-code'&gt;iris %&gt;% &lt;br&gt;  group_by(&lt;span style='color:transparent;background-color:pink'&gt;Species&lt;/span&gt;) %&gt;%&lt;br&gt;  summarize(Avg.Size = mean(Sepal.Length))&lt;/code&gt; 
 
 ```
 ## # A tibble: 3 x 2
@@ -482,7 +482,7 @@ class: invert, center, middle
 
 --
 
-Formatting is hard. 🙍
+Formatting is hard. 😿
 
 ---
 
