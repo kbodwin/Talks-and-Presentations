@@ -1,0 +1,13 @@
+name: rstudio_2020
+title: rstudio_2020
+username: kbodwin
+account: kbodwin
+server: rstudio.csm.calpoly.edu
+hostUrl: https://rstudio.csm.calpoly.edu/__api__
+appId: 73
+bundleId: 155
+url: https://rstudio.csm.calpoly.edu/content/73/
+when: 1580348418.1923
+asMultiple: FALSE
+asStatic: FALSE
+additionalFiles: 15pieces.jpg|fancy_gif.gif|flair_gif.gif|flair_hex.png|johanna_gif.gif|mostlytrue.png|shindig_gif.gif|shindig_hex_2.png|shiny_gif.gif|simple.gif|soon_gif.gif|templar_hex.png|templar_project.png|templar_syllabus.png

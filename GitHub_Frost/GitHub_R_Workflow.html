@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>GitHub, Projects, Packages</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kelly Bodwin" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# GitHub, Projects, Packages
+## Day 3
+### Kelly Bodwin
+
+---
+
+
+
+
+
+---
+
+background-image: url(https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
+
+---
+class: center, middle
+
+# GitHub
+
+&lt;img src="https://readr.tidyverse.org/logo.png" width=300&gt;
+
+---
+# Get Set Up
+
+0. [This is your Bible.](https://happygitwithr.com)
+
+1. [Register a free GitHub account.](www.github.com)
+
+2. [Install Git](https://git-scm.com/downloads)
+
+3. [Install GitHub Desktop](https://desktop.github.com/)
+
+---
+
+# Baby's First Repo
+
+GitHub Desktop
+
+* File &gt; New Repository
+
+* Choose a good name.  (No `_` allowed, use `-`.)
+
+* Brief description.
+
+* Choose your directory
+
+* Defaults OK for now
+    + (If you are going to share this code publicly, MIT license is a good choice.)
+    
+* Click "Create Repository"
+
+* Push!
+
+---
+class: center, middle
+
+# Quiz
+
+## What should we put in that repository first?
+
+---
+class: center, middle
+
+# Quiz
+
+## What should we put in that repository first?
+
+## An **R Project**!!!
+
+(From "Version Control" - your new repo.)
+
+---
+
+# Testing your repository
+
+1. Open your R Project.
+
+2. Create an R Markdown file and save it.
+
+3. In your top right pane, is there a "Git" panel?
+    + If not, raise your hand so we can help!
+    
+4. Check the box next to your Markdown file.
+
+5. Click "commit" and fill out a message.
+
+6. Push.
+
+7. Navigate to "www.github.com/yourname/reponame" to see the results!
+
+---
+# Cloning
+
+GitHub Desktop:
+
+* File &gt; Clone Repository
+
+* URL tab
+
+* "hglanz/rworkshop"
+
+* Choose your directory
+
+* Go!
+
+## Now you have your own copy of the materials!  You can make changes, commit, and push.
+
+---
+class: center, middle
+
+# Everything is a Package
+
+---
+# Pre-setup
+
+Install the packages `usethis`, `testthat`, and `roxygen2`.
+
+---
+
+# What is a package?
+
+Technically, R recognizes **any** folder as a package if it has:
+
+* A `DESCRIPTION` file
+
+* A `NAMESPACE` file
+
+* A folder called `R\`
+
+Let's make one now...
+
+
+
+```r
+## DO NOT COPY PASTE THIS CODE!  You need a real path.
+
+usethis::create_package("your/path/testpackage/")
+```
+
+
+
+---
+
+# DESCRIPTION
+
+Click on the `DESCRIPTION` file.  What information does it contain?
+
+Let's make a package for our new exciting project on analyzing Irises.  Our goal is to find out the mean sizes for each iris.  Fill out some of the fields in the `DESCRIPTION` file accordidngly.
+
+---
+
+# NAMESPACE
+
+**DO NOT EDIT THIS ONE!**  
+
+We'll come back to it.
+
+---
+
+# R
+
+Predictably, `R/` is the folder that will hold all your R files.  
+
+Make a new R script called "get_mean.R". This function should take two arguments: a dataset, and the name of a column. It should return the mean of that column.
+
+---
+
+# Testing
+
+Run the following:
+
+
+
+```r
+usethis::use_test("get_mean")
+```
+
+
+
+* What changed in your package folder?
+
+* Follow along with me to create the test.
+
+---
+
+# Build the package
+
+Run `ctrl-shift-b`.  What happened?
+
+Run `ctrl-shift-t`.  What happened?
+
+---
+# Dependencies
+
+Run the following:
+
+
+
+```r
+usethis::use_package("dplyr")
+```
+
+
+
+What changed in your packages folder?
+
+
+---
+
+# Documentation
+
+Type `?get_mean`.  What happens?
+
+Open up your `get_mean.R` file.
+
+At the very top, above the function definition, type:
+
+```
+#' Finds the mean of a column.
+```
+
+Run `ctrl-shift-d`
+
+* What changed in your folder?
+
+---
+
+# Documentation
+
+Run `ctrl-shift-b`
+
+Type `?get_mean`
+
+What do you see?
+
+Open your `NAMESPACE` file.
+
+What changed?
+
+---
+
+# Documentation
+
+Follow along with me, or mimic this example, to add to the documentation.
+
+```
+#' Add together two numbers.
+#' 
+#' @param x A number.
+#' @param y A number.
+#' @return The sum of \code{x} and \code{y}.
+#' @examples
+#' add(1, 1)
+#' add(10, 1)
+add &lt;- function(x, y) {
+  x + y
+}
+```
+
+---
+
+# Check-in:  Why???
+
+* If you change `get_mean.R`, you can easily make sure that everything still works how you want it to.
+
+* Easily remind yourself what the point of `get_mean.R` was.
+
+* If you share your work, things are in a predictable structure.
+
+* Easier to construct your analyses...
+
+---
+
+# But I'm a Data Scientist, not a Developer!!!
+
+--
+Me too! (Until recently)
+-- 
+I wish someone had taught me packaging. :(
+
+---
+
+# Let's analyze some data!
+
+Run the following:
+
+
+
+```r
+usethis::use_build_ignore("my_analysis")
+```
+
+
+
+* What changed in your package folder?
+
+* Why do you think this was important?
+
+---
+# Let's analyze some data!
+
+Open an Markdown file, and save it in the `my_analysis` folder.
+
+In your second setup chunk, include this line
+
+
+
+```r
+library(testpackage)
+```
+
+
+--
+But wait!  We didn't ever `install.packages` it!
+--
+`ctrl-shift-b` installed it for you.... but it is only available to you right now.
+
+(It's possible to install/share from GitHub)
+
+---
+# Irises are so exciting
+
+Make a new R chunk with the following:
+
+
+
+```r
+iris %&gt;%
+  select(-Species) %&gt;%
+  map(get_mean)
+```
+
+
+
+Knit your file... did it work?
+
+---
+# If we have time:
+
+Turn your "colleges" analysis into an R Package that is hosted on GitHub.
+
+---
+
+# Takeaway messages: GitHub
+
+* ALL your coding-related projects should be GitHub repos!
+
+* (Data can be on GitHub, but often not a good idea.)
+
+* Join the community. &lt;3
+
+---
+
+# Takeaway messages: Packages
+
+* Takes some getting used to, but makes your life easier.
+
+* `usethis::create_package("path")` to make basic version.
+
+* Don't touch `DESCRIPTION` or `NAMESPACE`, unless you are truly developing something to publicise.
+
+* Put all your functions in `.R` files in the `R/` folder.
+
+* `usethis::use_test("function")` to automatically make unit tests
+
+* `usethis::use_build_ignore("foldername")` to make folders for your analyses and so forth.
+
+* `ctrl-shift-d` to make documentation
+
+* `ctrl-shift-l` to load changes.
+
+* `ctrl-shift-t` to re-run tests
+
+* `ctrl-shift-b` to build package
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
