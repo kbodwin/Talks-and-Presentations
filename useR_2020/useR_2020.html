@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>{flair}: Decorate your source code.</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Kelly Bodwin" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# {flair}: Decorate your source code.
+## <img src='flair_hex.png' style='width:200px;height:200px;'>
+### Kelly Bodwin
+### These slides: <strong>kbod.win/talks/useR_2020</strong>
+
+---
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+
+.remark-slide {
+  background-size: cover;
+}
+
+img {
+  height: 400px;
+}
+&lt;/style&gt;
+
+---
+class: center, middle, inverse
+
+## The main idea:
+
+--
+
+### Source code needs highlighting in R Markdown-based presentations
+
+--
+
+### This can be an un-reproducible task
+
+---
+#### Hey kids, let's learn about boxplots!
+
+ggplot(penguins, aes(x = species, y = body_mass_b)) +
+        &lt;mark&gt; geom_histogram() &lt;/mark&gt;
+
+![](useR_2020_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+class: center
+
+## Me trying to highlight my code examples for lecture...
+
+&lt;img src="C:/Users/kbodwin/Dropbox/Talks-and-Presentations/RStudio_2020/johanna_gif.gif" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle
+
+## `install.packages("flair")`
+## BUT updated for R 4.0:
+## 👉 github.com/kbodwin/flair
+### (beware!)
+
+---
+class: inverse, center
+# How to add flair to your code
+
+&lt;img src="C:/Users/kbodwin/Dropbox/Talks-and-Presentations/RStudio_2020/flair_gif.gif" style="display: block; margin: auto;" /&gt;
+
+
+---
+# **Step One:**
+## Regular ol' code chunk (with a name)
+
+````
+
+```{r how_to_pipe, include = FALSE}
+
+penguins %&gt;%
+  group_by(species) %&gt;%
+  summarize(mean(body_mass_g))
+
+```
+
+````
+
+
+
+
+
+
+
+---
+# **Step Two:**
+## Reference chunk by name with `decorate`
+
+
+&lt;code class ='r hljs remark-code'&gt;&lt;span style='background-color:#ffff7f'&gt;decorate&lt;/span&gt;("how_to_pipe") %&gt;%&lt;/code&gt;
+
+---
+# **Step Three:**
+
+&lt;img src="C:/Users/kbodwin/Dropbox/Talks-and-Presentations/RStudio_2020/15pieces.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# **Step Three:**
+## Add your flair with `flair_*` functions
+
+
+&lt;code class ='r hljs remark-code'&gt;decorate("how_to_pipe") %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style='background-color:#ffff7f'&gt;flair&lt;/span&gt;("%&gt;%") %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style='background-color:#ffff7f'&gt;flair_funs&lt;/span&gt;(color = "cornflowerblue")&lt;/code&gt;
+
+---
+# You're done!
+
+
+
+```r
+decorate("how_to_pipe") %&gt;%
+  flair("%&gt;%") %&gt;%
+  flair_funs(color = "cornflowerblue")
+```
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;penguins &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style='color:cornflowerblue'&gt;group_by&lt;/span&gt;(species) &lt;span style='background-color:#ffff7f'&gt;%&gt;%&lt;/span&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&lt;span style='color:cornflowerblue'&gt;summarize&lt;/span&gt;(&lt;span style='color:cornflowerblue'&gt;mean&lt;/span&gt;(body_mass_g))&lt;/code&gt;
+
+```
+
+## # A tibble: 3 x 2
+##   species   `mean(body_mass_g)`
+##   &lt;fct&gt;                   &lt;dbl&gt;
+## 1 Adelie                    NA 
+## 2 Chinstrap               3733.
+## 3 Gentoo                    NA
+
+```
+
+---
+class: inverse, center, middle
+
+# FAQ
+
+---
+# **FAQ:**
+
+### Does this work in `ioslides`, `xaringan`, etc?
+
+--
+
+**YES!**  Any R-markdown based document.
+
+--
+
+### What happens when you run in console/Rmd source?
+
+--
+
+Source code w/flair is previewed in viewer pane.
+
+--
+
+### Does this work with LaTeX knitting?
+
+--
+
+Not yet, sorry.
+
+---
+class: inverse, center, middle
+
+&lt;img src="C:/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/favorites.jpeg" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+
+
+# Trick 1:  
+# Emphasize small code differences
+
+---
+## Original code chunk
+
+````
+```{r geoms, include=FALSE}
+babynames %&gt;%
+  ggplot(aes(x = Year, y = Count, fill = Gender)) +
+  geom_col()
+
+babynames %&gt;%
+  ggplot(aes(x = Year, y = Count, color = Gender)) +
+  geom_line()
+```
+````
+
+
+
+
+
+---
+## flair code chunk
+
+````
+```{r, echo = FALSE}
+decorate("geoms") %&gt;%
+  flair("_col") %&gt;%
+  flair("fill = ") %&gt;%
+  flair("_line") %&gt;%
+  flair("color = ")
+```
+````
+
+---
+## Results
+
+
+&lt;code class ='r hljs remark-code'&gt;babynames %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;ggplot(aes(x = Year, y = Count, &lt;span style='background-color:#ffff7f'&gt;fill = &lt;/span&gt;Gender)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom&lt;span style='background-color:#ffff7f'&gt;_col&lt;/span&gt;()&lt;/code&gt;
+
+
+![](useR_2020_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+---
+## Results
+
+
+&lt;code class ='r hljs remark-code'&gt;babynames %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;ggplot(aes(x = Year, y = Count, &lt;span style='background-color:#ffff7f'&gt;color = &lt;/span&gt;Gender)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom&lt;span style='background-color:#ffff7f'&gt;_line&lt;/span&gt;()&lt;/code&gt;
+
+
+![](useR_2020_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+---
+class: center, middle, inverse
+
+
+# Trick 2:  
+# Match colors to concepts
+
+---
+## Beautiful slide by [@AndrewHeiss](https://twitter.com/andrewheiss)
+
+&lt;kbd&gt;&lt;img src="https://pbs.twimg.com/media/EVq7NGeXgAMhvOC?format=jpg&amp;name=large" /&gt;&lt;/kbd&gt;
+
+---
+## Flair the text:
+
+````
+```{r, results = "asis", echo = FALSE}
+"This model has a response variable, two predictors, and an interaction term." %&gt;%
+  flair("response variable", color = "deeppink") %&gt;%
+  flair("predictors", color = "cornflowerblue") %&gt;%
+  flair("interaction term", color = "orange") %&gt;%
+  flair_all(before = "&lt;h4&gt;", after = "&lt;/h4&gt;") %&gt;%
+  cat()
+```
+````
+---
+## Flair the code:
+
+````
+```{r lm, include = FALSE}
+mod &lt;- lm(Count ~ Gender + Year + Gender:Year, data = babynames)
+
+summary(mod)
+```
+````
+
+
+````
+
+```{r, echo = FALSE}
+decorate("lm") %&gt;%
+  flair("Count", color = "deeppink") %&gt;%
+  flair("Gender:Year", color = "orange") %&gt;%
+  flair_rx("Gender |Year ", color = "cornflowerblue")
+
+```
+````
+---
+## Results
+
+
+&lt;h4&gt;This model has a &lt;span style='color:deeppink'&gt;response variable&lt;/span&gt;, two &lt;span style='color:cornflowerblue'&gt;predictors&lt;/span&gt;, and an &lt;span style='color:orange'&gt;interaction term&lt;/span&gt;.&lt;/h4&gt;
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;mod &lt;- lm(&lt;span style='color:deeppink'&gt;Count&lt;/span&gt; ~ &lt;span style='color:cornflowerblue'&gt;Gender &lt;/span&gt;+ &lt;span style='color:cornflowerblue'&gt;Year &lt;/span&gt;+ &lt;span style='color:orange'&gt;Gender:Year&lt;/span&gt;, data = babynames)&lt;br&gt;&lt;br&gt;summary(mod)&lt;/code&gt;
+
+```
+
+## 
+## Call:
+## lm(formula = Count ~ Gender + Year + Gender:Year, data = babynames)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -625.27 -128.36  -13.67  155.13  943.86 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)   837.0953  3555.4360   0.235    0.814
+## GenderM      2769.6513  4980.9342   0.556    0.579
+## Year           -0.1064     1.7965  -0.059    0.953
+## GenderM:Year   -1.6660     2.5171  -0.662    0.509
+## 
+## Residual standard error: 337.2 on 147 degrees of freedom
+## Multiple R-squared:  0.3876,	Adjusted R-squared:  0.3751 
+## F-statistic: 31.02 on 3 and 147 DF,  p-value: 1.357e-15
+
+```
+
+---
+class: center, middle, inverse
+
+
+# Trick 3:  
+# Masking
+
+---
+## A class quiz:
+
+
+
+
+
+
+
+&lt;code class ='r hljs remark-code'&gt;library(ggplot2)&lt;br&gt;&lt;br&gt;babynames %&gt;%&lt;br&gt;&amp;nbsp;&amp;nbsp;ggplot(aes(y = &lt;span style='background-color:#ffff7f'&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;, x = &lt;span style='background-color:#ffff7f'&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;, color = &lt;span style='background-color:#ffff7f'&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;)) +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom&lt;span style='background-color:#ffff7f'&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;() +&lt;br&gt;&amp;nbsp;&amp;nbsp;geom&lt;span style='background-color:#ffff7f'&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;() +&lt;br&gt;&amp;nbsp;&amp;nbsp;theme&lt;span style='background-color:#ffff7f'&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;()&lt;/code&gt;
+
+
+![](useR_2020_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+---
+## The flair chunk:
+
+````
+```{r, echo = FALSE}
+decorate("plot") %&gt;%
+  flair_rx("ggplot2?", background = "pink") %&gt;%
+  mask("Count") %&gt;%
+  mask("Year") %&gt;%
+  mask("Gender") %&gt;%
+  mask("point") %&gt;%
+  mask("line") %&gt;%
+  mask("light")
+  
+```
+````
+
+(Notice: `flair_rx()`)
+
+---
+class: inverse, center, middle
+# Find the package:
+
+## `install.packages("flair")`
+## **github.com/kbodwin/flair**
+
+# Find me:
+
+## **@KellyBodwin**
+
+## www.kelly-bodwin.com
+
+---
+class: middle, center, inverse
+
+# **Under the Hood:** For the devs
+
+## How it works
+## What you can help with
+---
+# How `flair` works
+## `with_flair()` object
+
+* `decorate()` creates a `with_flair()` object
+
+* `with_flair()` is a new S3 class for the package.
+     +  structure:  list, output of `knit_child()`
+     + `print` method:  prints as-is
+
+---
+# How `flair` works
+## `decorate()`
+
+The `decorate()` function...
+
+* tracks the current state of R Markdown (i.e. knitting versus interactive)
+
+* tracks global options and chunk-specific options
+
+* does a lot of regex searching to find `flair` chunks
+
+* knits the `flair` chunks individually, using appropriate options
+
+---
+# How `flair` works
+## `flair()`
+
+The `flair()` functions...
+
+* Find the source code elements in the `with_flair()` object.
+
+* Wrap html tags around the appropriate text.
+
+* Return a `with_flair()` object.
+
+---
+# How `flair` works
+## The whole routine
+
+1. Pre-knit the "child" chunks into html.
+
+2. Find flair-ed text and wrap html.
+
+3. Print as-is.
+
+---
+class: center, middle, inverse
+
+# How you can help
+
+--
+
+## Syntax highlighting!
+
+---
+# Syntax highlighting
+
+Ordinary knitting process:
+
+* R markdown/knitr runs code; stores source text and output in list.
+
+--
+
+* Pandoc process markdown and "fences" source code:
+
+````
+```r
+
+```
+````
+
+--
+
+* JavaScript `highlight.js` processes source text to add syntax highlighting.
+
+---
+# Syntax highlighting
+
+**What this means:** Syntax highlighting happens *on the browser end*.
+
+--
+
+Flair happens at the **knitting step**.
+
+--
+
+Can we somehow apply both to the source code?
+
+--
+
+&lt;img src="C:/Users/kbodwin/Dropbox/Talks-and-Presentations/Images/idk.gif" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+# Find the package:
+
+## `install.packages("flair")`
+## **github.com/kbodwin/flair**
+
+# Find me:
+
+## **@KellyBodwin**
+
+## www.kelly-bodwin.com
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"countIncrementalSlides": false,
+"highlightLines": true,
+"highlightStyle": "github",
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

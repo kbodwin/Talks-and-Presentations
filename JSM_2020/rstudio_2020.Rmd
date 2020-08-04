@@ -1,0 +1,262 @@
+---
+title: "	Inside-Out Statistics"
+subtitle: 'Teaching Evidence-Based Reasoning in Introductory Courses'
+author: "Kelly Bodwin"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      countIncrementalSlides: no
+      highlightLines: yes
+      highlightStyle: github
+institute: 'These slides: **kellybodwin.com/talks/jsm2020**'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+library(flair)
+#library(icon)
+#library(emo)
+library(tidyverse)
+library(knitr)
+
+```
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+mono_light(
+  base_color = "#26116c",
+  text_bold_color = "#fd5e53",
+  title_slide_text_color = "#fff8e7",
+  background_color = "#fff8e7",
+  header_font_google = google_font("Roboto"),
+  text_font_google   = google_font("Roboto Condensed"),
+  code_font_google   = google_font("Droid Mono")
+)
+```
+
+```{css, echo = FALSE}
+img {
+  height: 400px;
+}
+
+.remark-code {
+  font-size: 30px;
+}
+
+.remark-slide {
+  background-size: cover;
+}
+```
+
+---
+class: center, middle
+
+# A quick grading exercise
+
+---
+
+# The Question:
+
+In 1952, a group of scientists decided to study the effect of Vitamin C supplements
+on tooth growth.  They gathered a set of 60 guinea pigs, and gave half the animals
+pure vitamin C and half the animals Orange Juice.  They then measured the length
+of the guinea pigs' incisor teeth.
+
+The results of the study are summarized below:
+
+```{r, echo = FALSE}
+ToothGrowth %>%
+  group_by(supp) %>%
+  summarize(`Mean Tooth Length` = mean(len), 
+            `SD of Tooth Length` = sd(len),
+            `Sample Size` = n()) %>%
+  mutate(
+    `Supplement Type` = factor(supp, 
+                               levels = c("OJ", "VC"), 
+                               labels = c("Orange Juice", "Vitamin C")),
+  ) %>%
+  select(-supp) %>%
+  kable()
+```
+
+Is there evidence at the 0.05 level that the orange juice is more beneficial to tooth
+growth than Vitamin C supplements?  Justify your answer.
+
+---
+# The Correct Answer
+
+```{r, include = FALSE}
+t.test(len ~ supp, ToothGrowth, alternative = "greater")
+```
+
+<p style="border:3px; border-style:solid; border-color:#6495ed; padding: 1em;">
+With a t-score of <b>1.91</b>, we get a p-value of <b>0.03</b>.
+
+There <b>is evidence</b> at the 0.05 level that Orange Juice leads to more tooth
+growth than Vitamin C.
+</p>
+
+---
+# Student A
+
+<p style="border:3px; border-style:solid; border-color:red; padding: 1em;">
+With a t-score of <b>1.91</b>, we get a p-value of <b>0.03</b>.  
+
+There <font color = "red"><b> is not evidence</b></font> at the 0.05 level that Orange 
+Juice leads to more tooth
+growth than Vitamin C.
+</p>
+
+--
+
+<p style="border:3px; border-style:solid; border-color:#6495ed; padding: 1em;">
+With a t-score of <b>1.91</b>, we get a p-value of <b>0.03</b>.  
+
+There <b>is evidence</b> at the 0.05 level that Orange Juice leads to more tooth growth than Vitamin C.
+</p>
+
+---
+# Student B
+
+<p style="border:3px; border-style:solid; border-color:red; padding: 1em;">
+With a t-score of <font color = "red"><b>-1.91</b></font>, we get a p-value of <font color = "red"><b>0.03</b></font>.  
+
+There <b>is evidence</b> at the 0.05 level that <font color = "red">Vitamin C</font> leads to more tooth growth than <font color = "red">Orange Juice</font>.
+</p>
+
+<p style="border:3px; border-style:solid; border-color:#6495ed; padding: 1em;">
+With a t-score of <b>1.91</b>, we get a p-value of <b>0.03</b>.  
+
+There <b>is evidence</b> at the 0.05 level that Orange Juice leads to more tooth
+growth than Vitamin C.
+</p>
+
+---
+# Student C
+
+
+<p style="border:3px; border-style:solid; border-color:red; padding: 1em;">
+<font color = "red">The standard deviation of the mean for the OJ group is 1.2.
+The mean of the OJ group is about 4mm above the mean of the VC group.  This
+difference is a lot bigger than the standard deviation. </font>
+
+Thus, I think there <b>is evidence</b> that Orange Juice leads to more tooth
+growth than Vitamin C.
+</p>
+
+
+--
+
+<p style="border:3px; border-style:solid; border-color:#6495ed; padding: 1em;">
+With a t-score of <b>1.91</b>, we get a p-value of <b>0.03</b>. 
+
+There is <b>is evidence</b> at the 0.05 level of a difference in mean tooth lengths
+across the two supplement types.
+</p>
+
+---
+class: center, middle
+
+# How did you score these students?
+
+---
+
+# Who got what wrong?
+
+**Student A** got
+* the **correct** t-score
+* the **correct** p-value
+* the **wrong** conclusion
+
+**Student B** got
+* the **correct** (ish) t-score
+* the **correct** p-value
+* the **wrong** conclusion
+
+**Student C** got
+* **no** t-score
+* **no** p-value
+* the **correct** conclusion
+
+
+---
+class: center, middle
+
+# Which student would you want to hire?
+
+---
+
+
+**Student A:**
+
+
+<p style="border:3px; border-style:solid; padding: 1em;">
+With a t-score of <b>1.91</b>, we get a p-value of <b>0.03</b>.  
+
+There <b> is not evidence</b> at the 0.05 level that Orange 
+Juice leads to more tooth
+growth than Vitamin C.
+</p>
+
+**Student B:**
+
+<p style="border:3px; border-style:solid; padding: 1em;">
+With a t-score of <b>-1.91</b>, we get a p-value of <b>0.03</b>.  
+
+There <b>is evidence</b> at the 0.05 level that Vitamin C leads to more tooth growth than Orange Juice.
+</p>
+
+**Student C:**
+
+<p style="border:3px; border-style:solid; padding: 1em;">
+The standard deviation of the mean for the OJ group is 1.2.
+The mean of the OJ group is about 4mm above the mean of the VC group.  This
+difference is a lot bigger than the standard deviation. 
+
+Thus, I think there <b>is evidence</b> that Orange Juice leads to more tooth
+growth than Vitamin C.
+</p>
+
+--
+
+I argue that **Student C** deserves the highest grade.
+
+---
+class: center, middle
+
+# Being able to draw 
+# **reasonable conclusions from data**
+# is *way more important* than
+# being able to perform a hypothesis test.
+
+---
+
+> It will not be
+helpful for students to know about the tools and procedures that can be used to analyze data if
+students don’t first understand the underlying concepts. Having a good understanding of the
+concepts will make it easier for students to use necessary tools and procedures to answer
+particular questions about a dataset.
+Procedural steps too often claim students’ attention that an effective teacher could otherwise
+direct toward concepts.  
+
+> - Guidelines for Assessment and Instruction in Statistics Education (GAISE), 2016
+
+---
+# A Traditional Statistics Class
+
+[pic of "mountain climbing" through the steps of summaries & viz, test stats,
+p-values, interpretation]
+
+
+---
+# An "Inside-Out" Statistics Class
+
+[pic of target with "reasoning from summaries", then "reasoning from test stats"
+then "formal testing"]
+
+---
+# 

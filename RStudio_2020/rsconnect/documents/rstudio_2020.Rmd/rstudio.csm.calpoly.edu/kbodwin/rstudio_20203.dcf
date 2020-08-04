@@ -1,0 +1,12 @@
+name: rstudio_20203
+title: rstudio_2020
+username: kbodwin
+account: kbodwin
+server: rstudio.csm.calpoly.edu
+hostUrl: https://rstudio.csm.calpoly.edu/__api__
+appId: 75
+bundleId: 160
+url: https://rstudio.csm.calpoly.edu/RS_2020/
+when: 1580352995.54208
+asMultiple: FALSE
+asStatic: FALSE

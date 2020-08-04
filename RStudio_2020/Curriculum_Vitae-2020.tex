@@ -1,0 +1,253 @@
+%% TEMPLATE DOWNLOADED AND MODIFIED FROM http://www.latextemplates.com/cat/curricula-vitae
+
+\documentclass[12pt]{article}
+
+%\renewcommand*{\familydefault}{\sfdefault}
+
+
+\usepackage{calc}
+\usepackage[usenames,dvipsnames]{color}
+
+\usepackage{anyfontsize}
+\usepackage{enumerate}
+
+% Simpler bibsection for CV sections
+\makeatletter
+\newlength{\bibhang}
+\setlength{\bibhang}{1em}
+\newlength{\bibsep}
+ {\@listi \global\bibsep\itemsep \global\advance\bibsep by\parsep}
+\newenvironment{bibsection}
+    {\minipage[t]{\linewidth}\list{}{%
+        \setlength{\leftmargin}{\bibhang}%
+        \setlength{\itemindent}{-\leftmargin}%
+        \setlength{\itemsep}{\bibsep}%
+        \setlength{\parsep}{\z@}%
+        }}
+    {\endlist\endminipage}
+\makeatother
+
+
+% Layout: Puts the section titles on left side of page
+\reversemarginpar
+
+
+%% Use these lines for letter-sized paper
+\usepackage[paper=letterpaper,
+            includefoot, % Uncomment to put page number above margin
+            marginparwidth=1.in,     % Length of section titles
+            marginparsep=.15in,       % Space between titles and text
+            hmargin=0.7in,               % .5 inch margins
+            top=0.5in,
+            bottom=.75in,
+            includemp]{geometry}
+            
+\voffset=0.25in
+
+
+%% More layout: Get rid of indenting throughout entire document
+\setlength{\parindent}{0in}
+
+
+%% This gives us fun enumeration environments. compactitem will be nice.
+\usepackage{paralist}
+
+
+%% Reference the last page in the page number
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+%\pagestyle{empty}      % Uncomment this to get rid of page numbers
+\fancyhf{}\renewcommand{\headrulewidth}{0pt}
+\fancyfootoffset{\marginparsep+\marginparwidth}
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+%                    \arabic{page}                               % -LP
+                    \hfill \,}}
+
+
+% Finally, give us PDF bookmarks
+\usepackage{color,hyperref}
+\definecolor{darkblue}{rgb}{0.0,0.5,0.7}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Helper Commands %%%%%%%%%%%%%%%%%%
+
+% The title (name) with a horizontal rule under it
+\newcommand{\makeheading}[1]%
+        {\hspace*{-\marginparsep minus \marginparwidth}%
+         \begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+                {\Large \bfseries #1}\\[-0.15\baselineskip]%
+                 \rule{\columnwidth}{1pt}%
+         \end{minipage}}
+
+% The section headings
+\renewcommand{\section}[2]%
+        {\pagebreak[2]\vspace{1.3\baselineskip}%
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \hspace{0in}%
+         \marginpar{
+%         \raggedright \scshape {#1}}#2}\sf\bf
+         \raggedright \scshape {\fontsize{11pt}{1em}\textbf{#1}}}#2}
+
+% An itemize-style list with lots of space between items
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+        {\begin{itemize}[#1]}{\end{itemize}%
+         \vspace{-.6\baselineskip}}
+
+% An environment IDENTICAL to outerlist that has better pre-list spacing
+% when used as the first thing in a \section
+\newenvironment{lonelist}[1][\enskip\textbullet]%
+        {\vspace{-\baselineskip}\begin{list}{#1}{%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt}}}
+        {\end{list}\vspace{-.6\baselineskip}}
+
+% An itemize-style list with little space between items
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+        {\begin{compactitem}[#1]}{\end{compactitem}}
+
+% To add some paragraph space between lines.
+% This also tells LaTeX to preferably break a page on one of these gaps
+% if there is a needed pagebreak nearby.
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+
+
+%%%%----------------------------------------------------------------------------------------------%%%%
+%%%%----------------------------------------------------------------------------------------------%%%%
+\begin{document}
+\makeheading{\sc Kelly Bodwin - Curriculum Vitae}
+
+%%%%----------------------------------------------------------------------------------------------%%%%
+\vskip -1ex
+\section{\sc Contact Information}
+%
+\newlength{\rcollength}\setlength{\rcollength}{2.25in}%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength}p{\rcollength}}
+	464 Sandercock Street %
+		& \textit{Phone}: (408) 482-9935 \\
+	San Luis Obispo, CA  93401 & %
+		\textit{Email}: \href{mailto:kbodwin@calpoly.edu}{kbodwin@calpoly.edu} \\
+	& %
+		\textit{Web}:\hskip 2.65ex \href{www.kelly-bodwin.com}{www.kelly-bodwin.com} \\
+	 & %
+		\textit{GitHub}:\hskip .65ex \href{http://www.github.com/kbodwin}{github.com/kbodwin}
+\end{tabular}
+
+%%%%----------------------------------------------------------------------------------------------%%%%
+\vskip1ex
+\section{\sc Academic Positions}
+\textbf{California Polytechnic State University} \hfill \textbf{2017-present} \\
+Department of Statistics \hfill Assistant Professor (tenure-track)
+
+
+
+%%%%----------------------------------------------------------------------------------------------%%%%
+\vskip1ex
+\section{\sc Education}
+%
+\textbf{\fontsize{10.5}{12}\selectfont The University of North Carolina} \hfill \textbf{May 2017}
+	\vskip 1pt
+	\textit{Chapel Hill, North Carolina}
+	\vskip 2pt
+	\hspace{0pt}{\textbf{Ph.D.} Statistics}
+	\vskip 2pt
+	\hspace{0pt}{\textbf{Dissertation:} Methods of Association Mining by Variable-to-Set Affinity Testing}
+	\vskip 2pt
+	\hspace{0pt}{Advisors}: %
+		\href{http://www.unc.edu/~nobel/}{Andrew B. Nobel}, %
+		\href{http://www.unc.edu/~zhangk/}{Kai Zhang}
+%
+\vskip 11pt
+\textbf{\fontsize{10.5}{12}\selectfont Harvard University} \hfill \textbf{June 2011}
+	\vskip 1pt
+	\textit{Cambridge, Massachusetts}
+	\vskip 1pt
+	\hspace{0pt}{\textbf{B.A.} Statistics {\it (Cum Laude in Field)}
+
+\vskip 40pt
+
+%%%%----------------------------------------------------------------------------------------------%%%%
+\makeheading{\sc Teaching}
+\vskip .5ex
+\section{\sc Courses }
+\textbf{Courses at Cal Poly} \\
+STAT 431:  Advanced Statistical Computing with R \\
+STAT 419:  Applied Multivariate Statistics \\
+STAT 331:  Introduction to Statistical Computing with R \\
+STAT 218:  Applied Statistics for the Life Sciences \\
+\vskip .2ex
+%
+\textbf{Courses at UNC - Chapel Hill}\\
+STOR 155: Introductory Statistics  \textit{(Instructor)} \\
+STOR 455: Statistical Methods I  \textit{(Course Design)}  \\
+STOR 565: Machine Learning \textit{(Course Design)} \\
+\vskip 1pt
+\textbf{Curriculum Contributions} \\
+STAT 218:  Created Lab Exercises from scratch using R and Shiny, to transition introductory students into thinking about data through software. \\ (see: \href{github.com/kbodwin/Introductory-Statistics-Labs}{github.com/kbodwin/Introductory-Statistics-Labs} )\\
+STAT 331:  Created interactive ``decoding" activities for students to practice R skills while solving fun puzzles. (see:  \href{github.com/kbodwin/decodeR}{github.com/kbodwin/decodeR})\\
+STAT 431:  Designed course.
+\vskip 1pt
+
+\newpage
+%%%%----------------------------------------------------------------------------------------------%%%%
+
+\makeheading{\sc Publications }
+\vskip 20pt
+\begin{enumerate}[1]
+	\setlength{\parskip}{-1pt}
+	\setlength{\itemsep}{10pt}
+	\setlength{\parsep}{-5pt}
+	%
+	\vskip -1ex
+	\item[] \textbf{Bodwin K}, Chakraborty S, Zhang K,  and Nobel AB.  ``Latent Association Mining in Binary Data." \emph{(in preparation)}, Arxiv: 1711.10427 
+	\item[] Dellon, ES, \textbf{Bodwin K}, He M, Parker JS, Nobel AB, Selitsky SR.  ``Pre-treatment differential correlation of gene expression is associated with response to topical steroids in eosinophilic esophagitis." \emph{(in preparation)}
+	\item[] \textbf{Bodwin K}, Zhang K, and Nobel AB. 
+		``A testing-based approach to the discovery of differentially correlated variable sets." (2018), {\it Annals of Applied Statistics.} 12(2), 1180-1203.
+	\item[] D.M. Day, H.A. Wilson, \textbf{K. Bodwin}, C.M Monson. (2015). ``Change in Level of Service Inventory - Ontario Revision (LSI-OR) risk scores over time:  An examination of overall growth curves and subscale-dependent growth curves." (2015) {\it International Journal of Offender Therapy and Comparative Criminology, }, 1-17.
+	\item[] \textbf{Bodwin K}, Rosenthal JS, and Yoon AH. 
+		``A statistical approach to judicial authorship: A case study of Judge Easterbrook." (2013) {\it Advances and Application in Statistics.}, 37(2): 123-148.
+	\item[] \textbf{Bodwin K}, Rosenthal JS, and Yoon AH. 
+		``Opinion writing and authorship on the Supreme Court of Canada." (2013) {\it University of Toronto Law Journal}, 63:159-192.
+\end{enumerate}
+
+\vskip 50pt
+
+\makeheading{\sc Skills }
+
+\section{\sc Software} \\
+\vskip -20pt
+\begin{enumerate}[1]
+	\setlength{\parskip}{-1pt}
+	\setlength{\itemsep}{10pt}
+	\setlength{\parsep}{-5pt}
+	%
+	\vskip -1ex
+	\item[] \emph{Fluent:} R (base and tidyverse), ruby, Microsoft Office products
+	\item[] \emph{Competent:}  python, C/C++, javascript, Minitab, SPSS
+\end{enumerate}
+
+\section{\sc I am...} \\
+\vskip -20pt
+\begin{enumerate}[1]
+	\setlength{\parskip}{-1pt}
+	\setlength{\itemsep}{10pt}
+	\setlength{\parsep}{-5pt}
+	%
+	\vskip -1ex
+	\item[] \emph{a ``people person"}:  I love working on teams, sharing ideas, and collaborating.
+	\item[] \emph{a planner}:  Deadlines and commitments are my bread and butter.
+	\item[] \emph{self-motivated}:  I am excited about my work, and I put energy into all I do.
+	\item[] \emph{creative}:  Why create something if you can't have a little fun with it?
+\end{enumerate}
+
+
+
+\end{document}

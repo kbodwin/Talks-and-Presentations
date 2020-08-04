@@ -1,0 +1,538 @@
+---
+title: "{flair}: Decorate your source code."
+subtitle: '<img src=''flair_hex.png'' style=''width:200px;height:200px;''> '
+author: "Kelly Bodwin"
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      countIncrementalSlides: no
+      highlightLines: yes
+      highlightStyle: github
+      ratio: '16:9'
+institute: 'These slides: **kbod.win/talks/useR_2020**'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+
+library(flair)
+library(tidyverse)
+library(emo)
+library(icon)
+library(palmerpenguins)
+babynames <- read_delim(here::here("data", "kellys_ca.txt"), delim = " ")
+
+```
+
+```{r xaringan-themer, include = FALSE}
+library(xaringanthemer)
+library(tidyverse)
+style_mono_light(
+  base_color = "#26116c",
+  text_bold_color = "#fd5e53",
+  title_slide_text_color = "#fff8e7",
+  background_color = "#fff8e7",
+  header_font_google = google_font("Roboto"),
+  text_font_google   = google_font("Roboto Condensed"),
+  code_font_google   = google_font("Droid Mono")
+)
+```
+
+```{css, echo = FALSE}
+
+.remark-slide {
+  background-size: cover;
+}
+
+img {
+  height: 400px;
+}
+```
+
+---
+class: center, middle, inverse
+
+## The main idea:
+
+--
+
+### Source code needs highlighting in R Markdown-based presentations
+
+--
+
+### This can be an un-reproducible task
+
+---
+#### Hey kids, let's learn about boxplots!
+
+ggplot(penguins, aes(x = species, y = body_mass_b)) +
+        <mark> geom_histogram() </mark>
+
+```{r, echo = FALSE}
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+        geom_boxplot()
+```
+
+---
+class: center
+
+## Me trying to highlight my code examples for lecture...
+
+```{r, echo=FALSE, out.width = '70%', fig.align = "center"}
+knitr::include_graphics(here::here("RStudio_2020", "johanna_gif.gif"))
+```
+
+---
+class: center, middle
+
+## `install.packages("flair")`
+## BUT updated for R 4.0:
+## `r emo::ji("point_right")` github.com/kbodwin/flair
+### (beware!)
+
+---
+class: inverse, center
+# How to add flair to your code
+
+```{r, echo=FALSE, fig.align = "center"}
+knitr::include_graphics(here::here("RStudio_2020", "flair_gif.gif"))
+```
+
+
+---
+# **Step One:**
+## Regular ol' code chunk (with a name)
+
+````
+
+```{r how_to_pipe, include = FALSE}`r ''`
+
+penguins %>%
+  group_by(species) %>%
+  summarize(mean(body_mass_g))
+
+```
+
+````
+
+
+```{r how_to_pipe, include = FALSE}
+
+penguins %>%
+  group_by(species) %>%
+  summarize(mean(body_mass_g))
+
+```
+
+```{r meta, include = FALSE}
+decorate("how_to_pipe") %>%
+  flair("%>%") %>%
+  flair_funs(color = "cornflowerblue")
+```
+
+
+---
+# **Step Two:**
+## Reference chunk by name with `decorate`
+
+```{r, echo = FALSE}
+decorate("meta", eval = FALSE, echo = 1) %>%
+  flair("decorate")
+
+```
+
+---
+# **Step Three:**
+
+```{r, echo=FALSE, out.width = '70%', fig.align = "center"}
+knitr::include_graphics(here::here("RStudio_2020", "15pieces.jpg"))
+```
+
+---
+
+# **Step Three:**
+## Add your flair with `flair_*` functions
+
+```{r, echo = FALSE}
+decorate("meta", eval = FALSE) %>%
+  flair_rx("flair(_[:alpha:]+)*")
+
+```
+
+---
+# You're done!
+
+
+```{r}
+decorate("how_to_pipe") %>%
+  flair("%>%") %>%
+  flair_funs(color = "cornflowerblue")
+```
+
+---
+class: inverse, center, middle
+
+# FAQ
+
+---
+# **FAQ:**
+
+### Does this work in `ioslides`, `xaringan`, etc?
+
+--
+
+**YES!**  Any R-markdown based document.
+
+--
+
+### What happens when you run in console/Rmd source?
+
+--
+
+Source code w/flair is previewed in viewer pane.
+
+--
+
+### Does this work with LaTeX knitting?
+
+--
+
+Not yet, sorry.
+
+---
+class: inverse, center, middle
+
+```{r, echo=FALSE, out.width = '70%', fig.align = "center"}
+knitr::include_graphics(here::here("Images", "favorites.jpeg"))
+```
+
+---
+class: center, middle, inverse
+
+
+# Trick 1:  
+# Emphasize small code differences
+
+---
+## Original code chunk
+
+````
+```{r geoms, include=FALSE}`r ''`
+babynames %>%
+  ggplot(aes(x = Year, y = Count, fill = Gender)) +
+  geom_col()
+
+babynames %>%
+  ggplot(aes(x = Year, y = Count, color = Gender)) +
+  geom_line()
+```
+````
+
+```{r geoms1, include = FALSE, collapse=TRUE}
+babynames %>%
+  ggplot(aes(x = Year, y = Count, fill = Gender)) +
+  geom_col()
+```
+
+```{r geoms2, include = FALSE, collapse=TRUE}
+babynames %>%
+  ggplot(aes(x = Year, y = Count, color = Gender)) +
+  geom_line()
+```
+
+---
+## flair code chunk
+
+````
+```{r, echo = FALSE}`r ''`
+decorate("geoms") %>%
+  flair("_col") %>%
+  flair("fill = ") %>%
+  flair("_line") %>%
+  flair("color = ")
+```
+````
+
+---
+## Results
+
+```{r, echo = FALSE, fig.width = 3}
+## necessary to avoid duplicate label warning
+
+decorate("geoms1") %>%
+  flair("_col") %>%
+  flair("fill = ")
+```
+---
+## Results
+
+```{r, echo = FALSE, fig.width = 3}
+## necessary to avoid duplicate label warning
+
+decorate("geoms2") %>%
+  flair("_line") %>%
+  flair("color = ")
+```
+
+---
+class: center, middle, inverse
+
+
+# Trick 2:  
+# Match colors to concepts
+
+---
+## Beautiful slide by [@AndrewHeiss](https://twitter.com/andrewheiss)
+
+<kbd><img src="https://pbs.twimg.com/media/EVq7NGeXgAMhvOC?format=jpg&name=large" /></kbd>
+
+---
+## Flair the text:
+
+````
+```{r, results = "asis", echo = FALSE}`r ''`
+"This model has a response variable, two predictors, and an interaction term." %>%
+  flair("response variable", color = "deeppink") %>%
+  flair("predictors", color = "cornflowerblue") %>%
+  flair("interaction term", color = "orange") %>%
+  flair_all(before = "<h4>", after = "</h4>") %>%
+  cat()
+```
+````
+---
+## Flair the code:
+
+````
+```{r lm, include = FALSE}`r ''`
+mod <- lm(Count ~ Gender + Year + Gender:Year, data = babynames)
+
+summary(mod)
+```
+````
+
+
+````
+
+```{r, echo = FALSE}`r ''`
+decorate("lm") %>%
+  flair("Count", color = "deeppink") %>%
+  flair("Gender:Year", color = "orange") %>%
+  flair_rx("Gender |Year ", color = "cornflowerblue")
+
+```
+````
+---
+## Results
+
+
+```{r, results = "asis", echo = FALSE}
+"This model has a response variable, two predictors, and an interaction term." %>%
+  flair("response variable", color = "deeppink") %>%
+  flair("predictors", color = "cornflowerblue") %>%
+  flair("interaction term", color = "orange") %>%
+  flair_all(before = "<h4>", after = "</h4>") %>%
+  cat()
+```
+
+```{r lm2, include = FALSE}
+mod <- lm(Count ~ Gender + Year + Gender:Year, data = babynames)
+
+summary(mod)
+```
+
+```{r, echo = FALSE}
+decorate("lm2") %>%
+  flair("Count", color = "deeppink") %>%
+  flair("Gender:Year", color = "orange") %>%
+  flair_rx("Gender |Year ", color = "cornflowerblue")
+
+```
+
+---
+class: center, middle, inverse
+
+
+# Trick 3:  
+# Masking
+
+---
+## A class quiz:
+
+
+
+```{r plot, include = FALSE}
+library(ggplot2)
+
+babynames %>%
+  ggplot(aes(y = Count, x = Year, color = Gender)) +
+  geom_line() +
+  geom_point() +
+  theme_light()
+
+
+```
+
+
+```{r, echo = FALSE}
+decorate("plot") %>%
+  mask("ggplot2?", background = "pink") %>%
+  mask("Count") %>%
+  mask("Year") %>%
+  mask("Gender") %>%
+  mask("_point") %>%
+  mask("_line") %>%
+  mask("_light")
+  
+```
+
+---
+## The flair chunk:
+
+````
+```{r, echo = FALSE}`r ''`
+decorate("plot") %>%
+  flair_rx("ggplot2?", background = "pink") %>%
+  mask("Count") %>%
+  mask("Year") %>%
+  mask("Gender") %>%
+  mask("point") %>%
+  mask("line") %>%
+  mask("light")
+  
+```
+````
+
+(Notice: `flair_rx()`)
+
+---
+class: inverse, center, middle
+# Find the package:
+
+## `install.packages("flair")`
+## **github.com/kbodwin/flair**
+
+# Find me:
+
+## **@KellyBodwin**
+
+## www.kelly-bodwin.com
+
+---
+class: middle, center, inverse
+
+# **Under the Hood:** For the devs
+
+## How it works
+## What you can help with
+---
+# How `flair` works
+## `with_flair()` object
+
+* `decorate()` creates a `with_flair()` object
+
+* `with_flair()` is a new S3 class for the package.
+     +  structure:  list, output of `knit_child()`
+     + `print` method:  prints as-is
+
+---
+# How `flair` works
+## `decorate()`
+
+The `decorate()` function...
+
+* tracks the current state of R Markdown (i.e. knitting versus interactive)
+
+* tracks global options and chunk-specific options
+
+* does a lot of regex searching to find `flair` chunks
+
+* knits the `flair` chunks individually, using appropriate options
+
+---
+# How `flair` works
+## `flair()`
+
+The `flair()` functions...
+
+* Find the source code elements in the `with_flair()` object.
+
+* Wrap html tags around the appropriate text.
+
+* Return a `with_flair()` object.
+
+---
+# How `flair` works
+## The whole routine
+
+1. Pre-knit the "child" chunks into html.
+
+2. Find flair-ed text and wrap html.
+
+3. Print as-is.
+
+---
+class: center, middle, inverse
+
+# How you can help
+
+--
+
+## Syntax highlighting!
+
+---
+# Syntax highlighting
+
+Ordinary knitting process:
+
+* R markdown/knitr runs code; stores source text and output in list.
+
+--
+
+* Pandoc process markdown and "fences" source code:
+
+````
+```r
+
+```
+````
+
+--
+
+* JavaScript `highlight.js` processes source text to add syntax highlighting.
+
+---
+# Syntax highlighting
+
+**What this means:** Syntax highlighting happens *on the browser end*.
+
+--
+
+Flair happens at the **knitting step**.
+
+--
+
+Can we somehow apply both to the source code?
+
+--
+
+```{r, echo=FALSE, out.width = '70%', fig.align = "center"}
+knitr::include_graphics(here::here("Images", "idk.gif"))
+```
+
+---
+class: center, middle, inverse
+# Find the package:
+
+## `install.packages("flair")`
+## **github.com/kbodwin/flair**
+
+# Find me:
+
+## **@KellyBodwin**
+
+## www.kelly-bodwin.com
+
