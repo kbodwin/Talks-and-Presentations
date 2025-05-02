@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Bodwin_ExtendedAbstract_SDSS2025.aux
+The style file: sdss2020.bst
+Database file #1: sds2025_refs.bib
+Warning--empty journal in hastie2009introduction
+You've used 25 entries,
+            2490 wiz_defined-function locations,
+            670 strings with 7813 characters,
+and the built_in function-call counts, 8274 in all, are:
+= -- 813
+> -- 368
+< -- 1
++ -- 126
+- -- 122
+* -- 569
+:= -- 1416
+add.period$ -- 90
+call.type$ -- 25
+change.case$ -- 142
+chr.to.int$ -- 25
+cite$ -- 26
+duplicate$ -- 377
+empty$ -- 619
+format.name$ -- 152
+if$ -- 1665
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 26
+newline$ -- 143
+num.names$ -- 75
+pop$ -- 204
+preamble$ -- 1
+purify$ -- 186
+quote$ -- 0
+skip$ -- 281
+stack$ -- 0
+substring$ -- 185
+swap$ -- 70
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 160
+warning$ -- 1
+while$ -- 55
+width$ -- 30
+write$ -- 319
+(There was 1 warning)

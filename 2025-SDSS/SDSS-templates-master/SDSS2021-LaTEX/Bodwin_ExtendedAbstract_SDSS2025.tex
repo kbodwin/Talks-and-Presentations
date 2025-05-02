@@ -1,0 +1,95 @@
+% File SDSS2020_SampleExtendedAbstract.tex
+\documentclass[10pt]{article}
+\usepackage{sdss2020} % Uses Times Roman font (either newtx or times package)
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{amsmath, amsthm, amsfonts}
+\usepackage{algorithm, algorithmic}  
+\usepackage{graphicx}
+
+\title{Intermediate Data Science with R: \\
+Scope, insights, and materials for a second course in R.}
+
+\author{
+  Kelly Bodwin \\
+  Department of Statistics \\
+  California Polytechnic State University \\
+  {\tt kbodwin@calpoly.edu} \\\And
+ Tyson Barrett \\
+  Highmark Health and  \\
+  Utah State Univeristy \\
+  {\tt tyson.barrett@usu.edu}   
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper proposes a definition of scope for learners and educators at the intermediate level using R for data science.  We also correspondingly provide an online repository of teaching and learning resources, including a publicly hosted textbook.
+\end{abstract}
+
+{\bf Keywords:} R, statistical programming, data science education
+
+\section{Introduction}
+
+For new learners of R Statistical Software ~\cite{RStats}, the landscape of learning materials and classroom opportunities is extensive.  Perhaps the most well-known resource is the free online textbook \emph{R for Data Science} ~\cite{wickham2023r}; but a plethora of other resources exists for different syntactical approaches, use cases, etc.  ~\cite{crawley2012r,verzani2004using,navarro2015learning}.  Additionally, college programs frequently offer Introduction to R courses, and professional conferences regularly offer pre-conference workshops.  Despite the many different approaches to introductory R education, there is a loose general consensus on what constitutes ``Beginner" or ``Introductory" material: language skills like function calling and scripting; data skills like import, wrangling, summarizing, and visualization; and analytical skills like basic statistical tests or models.
+
+However, after foundational R skills have been established - whether through self-learning, a workplace, or coursework - there is little consensus on next steps.  Learning materials and opportunities at the ``Intermediate-to-Advanced" R level tend to be specialized; focusing deeply on a particular application area.  In particular, textbooks purporting to be at this level ~\cite{matloff2011art,wickham2019advanced}  are often extremely development-focused, teaching users about the architecture of the language itself and/or how to design and create software.  Other approaches limit their scope to topics like visualization ~\cite{sievert2020interactive,wilke2019fundamentals} , statistical modeling ~\cite{hastie2009introduction} or particular domain spaces ~\cite{gentleman2005bioinformatics}.
+
+In this project, we propose and justify a standard set of topics that are typically untaught at introductory levels, that we believe should be considered the backbone of intermediate R education in data science.  We also provide a free, online, open-source resource of educational materials for these topics.
+
+\section{Methods}
+
+We identify five problem spaces in data computing that data scientists commonly address, that require skills outside of the typical introductory curriculum:
+
+\subsection{Data types and sources beyond comma-separated files.}
+
+Introductory R materials nearly always limit their scope to data read in from local \emph{.txt} or \emph{.csv} files.  While convenient for streamlining teaching, this structure rarely mimics the true needs of a data scientist.
+
+Increasingly, data science work is done on data stored in databases, whether locally (e.g. \emph{duckdb} ~\cite{raasveldt2019duckdb}) or remotely (e.g. on an SQL server).  For an R learner to move to an intermediate practitioner, they must have some understanding of the database structure, as well as fluency in R tools for interfacing, such as \emph{arrow} ~\cite{arrow}, \emph{DBI} ~\cite{DBI} and \emph{odbc} \cite{odbc}.
+
+Additionally, it is crucial for a practitioner to be able to interface with APIs, using tools like \emph{jsonlite} ~\cite{jsonlite} or \emph{XML} ~\cite{XML} to handle pulled data that is not in csv format.  It is also often of interest to extract data from non-API online sources, necessitating training in webscraping using tools like \emph{rvest} ~\cite{rvest} or \emph{htmltools} ~\cite{htmltools}.
+
+\subsection{Advanced and dynamic data visualization.}
+
+As data visualization is a common topic for a full course or textbook, a wealth of resources is already in place; we refer to ~\cite{wilke2019fundamentals,sievert2020interactive,sarkar2008multivariate} and others for coverage of these topics.
+
+\subsection{Complexities of unclean or unstructured data. }
+
+While introductory courses do often touch upon data cleaning and wrangling, the complexities of real data are often far more convoluted than a beginner student is equipped to address.  We propose the following for a second sequence curriculum:
+
+*Handling of missing data.*  Learners should be taught more sophisticated methods to recognize, assess, and replace missing data.  They may use tools like \emph{naniar} ~\cite{naniar} to find and visualize trends in missingness, and learn common methods for imputation.
+
+*Multi-pivot pipelines.*  Data reshaping is rarely a one-step procedure; learners will practice scenarios that require two or more pivots on a given data frame in sequence.
+
+*Joins with repeats.*  A common source of data glitches is when joins are performed many-to-many match scenarios, resulting in repeat cases in the dataset.   An intermediate course should teach strategies for error checking these scenarios and troubleshooting them responsibly.
+
+*Manual cleaning via regular expressions.*  Although intermediate learners may have seen string methods and possibly even regular expressions in a first course, they have likely not experienced using regular expressions for bespoke data cleaning.  A focus on more complex regular expressions should be incorporated in a more advanced course.
+
+
+\subsection{Speed and efficiency concerns for large or repeated analyses.}
+
+In real data settings, R programmers are often asked to handle larger data and/or many duplicate analysis processes.  It is critical that an intermediate user be exposed to methods of code streamlining, such as matrix operations, as well as tools built for speed and computational efficiency in these contexts.  Most important among these is the \emph{data.table} ~\cite{datatable} package, known for being the most optimized code for in-memory data manipulation.  Much of this project will pertain to developing learning materials for adoption of the \emph{data.table} package, which are largely lacking in the education space.
+
+
+
+\subsection{Workflow and reproducibility for long-term collaborative projects.}
+
+Practical data science requires use of collaborative tools including version control and professional communication.  At present, we recommend teaching Quarto notebooks ~\cite{quarto} and git filetracking ~\cite{git} with GitHub or GitLab hosting.
+
+Additionally, code projects must be structured in a way that is efficient and collaborative.  An intermediate course should teach custom function writing, scripting, and possibly package-based workflow ~\cite{wickham2023rp}.
+
+
+
+
+
+\section{Discussion}
+
+The work in this project will serve as a foundational starting point for much-needed Intermediate R curriculum in data science.  Learners will have the opportunity to work through the open-source ``course-in-a-box" textbook and activities, and educators may use and build upon these resources as they create their own materials.
+
+
+\bibliographystyle{sdss2020} % Please do not change the bibliography style
+\bibliography{sds2025_refs.bib}
+
+\end{document}

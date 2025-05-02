@@ -1,0 +1,103 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\margl1440\margr1440\vieww16900\viewh13340\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 - Explore folder/file structure to see what the project contains\
+- Open image files in viewer / CSV files as raw text to look at their contents\
+- Scroll through Rmd quickly to see overall structure\
+- Use Table of Contents view in IDE to see overall structure of Rmd\
+- Knit document to check if knitting works (rather than to read)\
+- Read code chunks aloud for self-explanation\
+  - Often accompanied by "so *this* does *that*" comments\
+- Comment on unrecognized Markdown syntax ('>')\
+- Comment on unrecognized or little-used functions in R\
+- Look at column names in data dictionary without reading explanations (inferring meaning from names)\
+- Look at explanations in data dictionary\
+- Run code chunk and looking at output in situ\
+- Run code chunk and looking at output in console\
+- Compare code output to prose description in Rmd\
+- Compare code output to data dictionary\
+- Redisplay data in console by typing variable name\
+- Run part of code chunk by highlighting lines and using keyboard shortcut\
+- Highlight part of code chunk while explaining it aloud (as a way of focusing attention)\
+- Move mouse over part of code chunk while explaining it aloud (as a way of focusing attention)\
+- Look at scalar output (e.g., number of rows) and say "That looks fine" (checking plausibility of calculation)\
+- Read prose and then run short calculation (e.g., number of rows) in console or by highlighting to check mental model of data before proceeding\
+- Repeat command in console with slight modification (e.g., sample a different column) to check mental model of data\
+- Decide something is wrong by comparing output of ad hoc computation against mental model of data: "This should be more than that"\
+- Add comment to code to note problem\
+- Add comment to Markdown to note problem\
+- Highlight a single parameter of a function to focus attention on it (e.g., filter expression or which column is being string replaced)\
+- Start to type ad hoc calculation in console, stop to think about exactly what to run/display\
+- Look at/for NA values\
+- Modify console command to remove NA values\
+- Read parts of multi-part mutate in order as if they were consecutive assignment statements\
+  - Once they understand what new values are being calculated, they have oriented themself in the calculation\
+- Describe output of ad hoc command in console to self: "So it has four columns..."\
+- Check structure vs. data in calculation\
+  - "Does it make a difference if it's across the rows or across the precinct?"\
+  - "Maybe it should be grouped by community"\
+- Point out possible error in code based on own limited understanding\
+  - "Maybe it should be plus or minus... I don't quite know what 'strongholds for the ballot leader' means..."\
+- Using code as a guide to understand prose\
+  - "Am I looking for the top 5 percent leader, or for the ones that are closest to the mean - I'm just not understanding"\
+  - Acknowledges that this strategy is unsafe since code can be wrong\
+- Reverse engineer plotting code from generated plot\
+  - "This [highlighting code with mouse] is the X axis... this [highlight] is the Y axis"\
+- Self-explain statistical model (`lm`) while slowly mousing over parts of formula\
+- Use statistical summary as aid to interpreting problem description\
+- Look at general properties of statistical summary\
+  - "R-squared is not very high, though it looks like some of the provinces are significant"\
+- Use `setwd()` to change working directory after file fails to load (clearly familiar with this problem and its solution)\
+- Trust constants like conversion factors without checking\
+- Trace code while looking at subset of data to verify operations on that subset\
+- Call function in console with made-up values to check operation\
+- Use "infinite width" to display all columns of table\
+- Run code without checking output (from comments, believes computation is simple enough that it must be correct)\
+- Comment on code practice: "I would never overwrite [name of data variable] I would create a new one"\
+- Check properties of data with ad hoc calculation (e.g., count (Player, Position) pairs to see if players change position)\
+- Look at original and calculated columns side by side to check transformation\
+- Look for NA in calculated column "to see if we missed anything"\
+- Re-run all chunks to undo effects of changes\
+- Interpret result of computation and then scroll backward to compare to claim made in prose\
+- Check that all plots appear in generated HTML\
+- State that visualization doesn't support claim in prose, either because interpretation is wrong or because conversion factor is wrong\
+- Resize panes in IDE to make more space for code\
+- Read consecutive chunks of prose without running intervening code in order to orient themself\
+- Correct spelling/grammar/formatting error (including line breaks for sentences)\
+  - Is this to support close reading?\
+- Look at plots in generated HTML before looking at code in order to get sense of data (e.g., outliers)\
+  - Also spot common problems with data: outliers will affect regression\
+  - Think of remedy before looking at code based on generic properties of plot\
+- Wish for more background information (e.g., about electoral system) in order to be able to check interpretation of prose and data\
+- Type in wished-for change and then delete it\
+- Misinterpret code [interpret "m+2*s" as "(m+2)*s"]\
+- Add comment about what they would do instead (e.g., "use scale() function")\
+- Add comment to remind themself to check something (e.g., that "group_by()" is happening in the right order)\
+- Change plotting code without having run it based on prior knowledge (convert geom_line to geom_bar because of data properties)\
+- Explain parts of statistical model: "*this* is just to disqualify things, *this* is to check the assumptions"\
+- Note where nature of data invalidates some assumptions of statistical model (e.g., independence assumption for linear regression)\
+- Visualize statistical model (e.g., with Q-Q plot)\
+- Note unfamiliarity with library (infer)\
+- Comment on accuracy of prose based on prior knowledge (e.g., "This is true" in response to reading a statement about NBA)\
+- Check column type against expected type of data (e.g., note that Height is character but should be numeric)\
+- Use 'View()' to look at data\
+- State that they would use a pipeline where the doc uses a function (but acknowledge that a function is better)\
+- Identify possible problem based on prior domain knowledge (players can move between teams)\
+- Interpret NAs as a signal that a conversion hasn't worked (or hasn't worked properly or completely)\
+- Use '?' to bring up help for an unfamiliar function\
+- Look at example in help to understand functon rather than reading parameter descriptions etc.\
+- Comment that it would be helpful if chunks were named (adds name to chunk)\
+- Compare term in prose (mean) with actual calculation (median)\
+- Explicit statement "I'm going to trust that this works" (presumably time pressure?)\
+- Comment on statistical practice: "If you're going to do lots of tests, technically need to set a familywise error rate."\
+- Check for common error in statistical operation (one-sided vs. two-sided) by re-reading prose\
+- Note difference between saved HTML and generated HTML [happened because they hadn't re-run one calculation in the Rmd manually]\
+- Compare statistical result with APA reporting guidelines\
+- Realize that difference between saved and generated HTML is operator error\
+}

@@ -1,0 +1,162 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Allaire and Dervieux}2024]{quarto}
+JJ~Allaire and Christophe Dervieux, 2024.
+\newblock {\em quarto: R Interface to 'Quarto' Markdown Publishing System}.
+\newblock R package version 1.4.
+
+\bibitem[\protect\citename{Barrett \bgroup et al.\egroup }2024]{datatable}
+Tyson Barrett, Matt Dowle, Arun Srinivasan, Jan Gorecki, Michael Chirico, and
+  Toby Hocking, 2024.
+\newblock {\em data.table: Extension of `data.frame`}.
+\newblock R package version 1.15.4.
+
+\bibitem[\protect\citename{Chacon and Straub}2014]{git}
+Scott Chacon and Ben Straub.
+\newblock 2014.
+\newblock {\em Pro git}.
+\newblock Apress.
+
+\bibitem[\protect\citename{Cheng \bgroup et al.\egroup }2024]{htmltools}
+Joe Cheng, Carson Sievert, Barret Schloerke, Winston Chang, Yihui Xie, and Jeff
+  Allen, 2024.
+\newblock {\em htmltools: Tools for HTML}.
+\newblock R package version 0.5.8.1.
+
+\bibitem[\protect\citename{Crawley}2012]{crawley2012r}
+Michael~J Crawley.
+\newblock 2012.
+\newblock {\em The R book}.
+\newblock John Wiley \& Sons.
+
+\bibitem[\protect\citename{Gentleman \bgroup et al.\egroup
+  }2005]{gentleman2005bioinformatics}
+Robert Gentleman, Vincent Carey, Wolfgang Huber, Rafael Irizarry, and Sandrine
+  Dudoit.
+\newblock 2005.
+\newblock {\em Bioinformatics and computational biology solutions using R and
+  Bioconductor}.
+\newblock Springer Science \& Business Media.
+
+\bibitem[\protect\citename{Hastie \bgroup et al.\egroup
+  }2009]{hastie2009introduction}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock 2009.
+\newblock An introduction to statistical learning.
+
+\bibitem[\protect\citename{Hester \bgroup et al.\egroup }2024]{odbc}
+Jim Hester, Hadley Wickham, and Oliver Gjoneski, 2024.
+\newblock {\em odbc: Connect to ODBC Compatible Databases (using the DBI
+  Interface)}.
+\newblock R package version 1.4.2.
+
+\bibitem[\protect\citename{Matloff}2011]{matloff2011art}
+Norman Matloff.
+\newblock 2011.
+\newblock {\em The art of R programming: A tour of statistical software
+  design}.
+\newblock No Starch Press.
+
+\bibitem[\protect\citename{Navarro}2015]{navarro2015learning}
+Danielle Navarro.
+\newblock 2015.
+\newblock Learning statistics with r: A tutorial for psychology students and
+  other beginners (version 0.6).
+\newblock {\em Sydney, Australia: University of New South Wales}.
+
+\bibitem[\protect\citename{Ooms}2014]{jsonlite}
+Jeroen Ooms.
+\newblock 2014.
+\newblock The jsonlite package: A practical and consistent mapping between json
+  data and r objects.
+\newblock {\em arXiv:1403.2805 [stat.CO]}.
+
+\bibitem[\protect\citename{{R Core Team}}2024]{RStats}
+{R Core Team}, 2024.
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+
+\bibitem[\protect\citename{{R Special Interest Group on Databases (R-SIG-DB)}
+  \bgroup et al.\egroup }2024]{DBI}
+{R Special Interest Group on Databases (R-SIG-DB)}, Hadley Wickham, and Kirill
+  Müller, 2024.
+\newblock {\em DBI: R Database Interface}.
+\newblock R package version 1.2.3.
+
+\bibitem[\protect\citename{Raasveldt and
+  M{\"u}hleisen}2019]{raasveldt2019duckdb}
+Mark Raasveldt and Hannes M{\"u}hleisen.
+\newblock 2019.
+\newblock Duckdb: an embeddable analytical database.
+\newblock In {\em Proceedings of the 2019 International Conference on
+  Management of Data}, pages 1981--1984.
+
+\bibitem[\protect\citename{Richardson \bgroup et al.\egroup }2024]{arrow}
+Neal Richardson, Ian Cook, Nic Crane, Dewey Dunnington, Romain François,
+  Jonathan Keane, Dragoș Moldovan-Grünfeld, Jeroen Ooms, Jacob Wujciak-Jens,
+  and {Apache Arrow}, 2024.
+\newblock {\em arrow: Integration to 'Apache' 'Arrow'}.
+\newblock R package version 18.1.0.
+
+\bibitem[\protect\citename{Sarkar}2008]{sarkar2008multivariate}
+Deepayan Sarkar.
+\newblock 2008.
+\newblock Multivariate data visualization with r.
+\newblock {\em Use R}.
+
+\bibitem[\protect\citename{Sievert}2020]{sievert2020interactive}
+Carson Sievert.
+\newblock 2020.
+\newblock {\em Interactive web-based data visualization with R, plotly, and
+  shiny}.
+\newblock Chapman and Hall/CRC.
+
+\bibitem[\protect\citename{{Temple Lang}}2024]{XML}
+Duncan {Temple Lang}, 2024.
+\newblock {\em XML: Tools for Parsing and Generating XML Within R and S-Plus}.
+\newblock R package version 3.99-0.17.
+
+\bibitem[\protect\citename{Tierney and Cook}2023]{naniar}
+Nicholas Tierney and Dianne Cook.
+\newblock 2023.
+\newblock Expanding tidy data principles to facilitate missing data
+  exploration, visualization and assessment of imputations.
+\newblock {\em Journal of Statistical Software}, 105(7):1--31.
+
+\bibitem[\protect\citename{Verzani}2004]{verzani2004using}
+John Verzani.
+\newblock 2004.
+\newblock {\em Using R for introductory statistics}.
+\newblock Chapman and Hall/CRC.
+
+\bibitem[\protect\citename{Wickham and Bryan}2023]{wickham2023rp}
+Hadley Wickham and Jennifer Bryan.
+\newblock 2023.
+\newblock {\em R packages}.
+\newblock " O'Reilly Media, Inc.".
+
+\bibitem[\protect\citename{Wickham \bgroup et al.\egroup }2023]{wickham2023r}
+Hadley Wickham, Mine {\c{C}}etinkaya-Rundel, and Garrett Grolemund.
+\newblock 2023.
+\newblock {\em R for data science}.
+\newblock " O'Reilly Media, Inc.".
+
+\bibitem[\protect\citename{Wickham}2019]{wickham2019advanced}
+Hadley Wickham.
+\newblock 2019.
+\newblock {\em Advanced r}.
+\newblock chapman and hall/CRC.
+
+\bibitem[\protect\citename{Wickham}2024]{rvest}
+Hadley Wickham, 2024.
+\newblock {\em rvest: Easily Harvest (Scrape) Web Pages}.
+\newblock R package version 1.0.4.
+
+\bibitem[\protect\citename{Wilke}2019]{wilke2019fundamentals}
+Claus~O Wilke.
+\newblock 2019.
+\newblock {\em Fundamentals of data visualization: a primer on making
+  informative and compelling figures}.
+\newblock O'Reilly Media.
+
+\end{thebibliography}

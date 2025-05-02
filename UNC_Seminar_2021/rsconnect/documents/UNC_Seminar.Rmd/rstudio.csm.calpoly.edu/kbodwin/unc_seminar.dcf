@@ -1,0 +1,13 @@
+name: unc_seminar
+title: UNC_Seminar
+username: kbodwin
+account: kbodwin
+server: rstudio.csm.calpoly.edu
+hostUrl: https://rstudio.csm.calpoly.edu/__api__
+appId: 348
+bundleId: 740
+url: https://rstudio.csm.calpoly.edu/content/7932ca41-4dce-47a7-87d7-07331975cc65/
+when: 1631301397.03871
+lastSyncTime: 1631301397.03874
+asMultiple: FALSE
+asStatic: FALSE

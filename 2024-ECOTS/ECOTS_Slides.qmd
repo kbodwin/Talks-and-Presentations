@@ -1,0 +1,356 @@
+---
+title: "Decoder"
+format: revealjs
+editor: visual
+execute: 
+  echo: true
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+```
+
+# Example 1: Filter a dataset
+
+## Ephelia's college
+
+> Wow!  Your best friend Ephelia has been accepted to the college of her dreams!  Unfortunately, Ephelia is a very mysterious person, and she won't tell you directly which college this is.  You'll have to use her clues to figure out which school is her dream school.
+
+## Ephelia's college: Clues
+
+> 1. This college is located in Region 1.
+
+* Simple `filter()`
+
+. . .
+
+> 2. This college's admission rate is in the first quartile for the region.
+
+* `summarize()` to find quartile
+
+* `filter()` using saved value
+
+## Ephelia's college: Clues
+
+> 3. This college charges the same for in- and out-of-state tuition.
+
+* `filter()` with two variables
+
+. . .
+
+> 4. The average SAT score of this college is an odd number.
+
+* `filter()` with math
+
+. . .
+
+> 5. This college is NOT in New Hampshire or in the city of Boston.
+
+* `filter()` with two conditions
+
+
+## Ephelia's college: Clues
+
+> 6. More than 3,000 people apply to this college every year.  (Hint: Make a new variable to compute how many people apply.  Assume the size of an incoming class is 1/4 of the total undergraduate population, and remember that not everyone who *applies* is *admitted*.)
+
+* `mutate()` then `filter()` on new variable
+
+. . .
+
+> 7. Ephelia is not going to an Ivy League school.
+
+* `filter()` with `%in%` and external research
+
+. . .
+
+> 8. Of the two options remaining at this step, Ephelia will attend the cheaper one.
+
+* `min()`
+
+## Creation process
+
+* Wanted **data cleaning** as a **warm-up** 
+  -> `colleges` dataset is nice and messy!
+
+* Chose an arbitrary college to be the answer.
+
+* **Reverse-engineered** filter steps.
+
+* Tweaked to hit each of the "big 5" `dplyr` verbs.
+
+## Pros
+
+* With some work, easy enough to **change the answer**.
+
+* **Not** sensitive to re-running chunks (if done correctly)
+
+## Cons:
+
+* Hard to involve all verbs in a **meaningful, relevant** way.
+
+* Doesn't incorporate `pivot` or `groupby-summarize`
+
+* If **data cleaning** is not done correctly, this won't work.
+
+* Possible to arrive at **an answer** without it being the **correct answer**.
+
+
+
+# Example 2: Decode a message
+
+## Secret message and stringr
+
+> Run the code below to load the scrambled message:
+
+```{r}
+
+message <- read.csv("https://www.dropbox.com/s/lgpn3vmksk3ssdo/scrambled_message.txt?dl=1", stringsAsFactors = FALSE)$Word
+
+message
+```
+
+## Secret message and stringr
+
+> In this activity, a "word" is a set of characters with no white space.  That is, even though many of elements of the scrambled mess vector are nonsense, and some have punctuation, you can consider each element to be a "word".
+
+## Warm-up exercises
+
+1. How many characters are in the scrambled message?
+2. How many of these characters are white space?
+3. How many words are in the scrambled message?
+4. Show all the punctuation marks in the scrambled message.
+5. Print out, in all capitals, the longest word in the scrambled message.
+6. Print out every piece of a word that starts with the letter "m" and ends with the letter "z" in the scrambled message.
+
+## Clues{.smaller}
+
+1. Remove any spaces before or after each word.
+2. No word should be longer than 16 characters. Drop all extra characters off the end of each word.
+3. Any time you see the word "ugh", with any number of h's, followed by a punctuation mark, delete this.
+4. Replace all instances of exactly 2 a's with exactly 2 e's.
+5. Replace all z's with t's.
+6. Every word that ends in b, change that to a y.  *Hint: look out for punctuation!*
+7. Every word that starts with k, change that to a v.  *Hint: look out for capitalization!*
+8. Use `str_c` to recombine all your words into a message.
+9. Find the movie this quote is from.
+
+## Creation process
+
+* Need text with recurring chracter to replace
+
+. . .
+
+```
+Voila! In view humble vaudevillian veteran, cast vicariously as both victim and villain by the vicissitudes of fate. This visage, no mere veneer of vanity, is a vestige of the “vox populi” now vacant, vanished. However, this valorous visitation of a bygone vexation stands vivified, and has vowed to vanquish these venal and virulent vermin, van guarding vice and vouchsafing the violently vicious and voracious violation of volition. The only verdict is vengeance; a vendetta, held as a votive not in vain, for the value and veracity of such shall one day vindicate the vigilant and the virtuous.
+Verily this vichyssoise of verbiage veers most verbose, so let me simply add that it’s my very good honour to meet you and you may call me V.
+```
+
+## Creation Process
+
+* Need text with recurring chracter to **replace**
+  -> Famous "V" speech
+
+* Insert nonsense to **remove**
+
+* Incorporate **white space** and **punctuation**
+
+* Incorporate **repeated patterns**  (`ughh` and `ughhhh` to be removed)
+
+* Reverse-order steps.
+
+## Pros
+
+* Very clear **final answer**
+
+* Progress is **visible** along the way
+
+
+
+## Cons
+
+*  Can recognize answer **early** in process
+
+. . .
+
+```{r}
+message %>%
+  str_trim(side = "both") %>%
+  str_trunc(16, side = "right", ellipsis = "") %>%
+  str_replace_all("ugh+[:punct:]", "")
+```
+
+## Cons
+
+* Can recognize answer **early** in process
+
+* Challenges of **object types** and `stringr`: puzzle is *vector* not a *data frame*.
+
+* Very **hard-coded**; can't swap out for a different quote.
+
+
+# Example 3: Matrix Algebra
+
+## Setup
+
+Run the following code chunk to load up your matrix (M), and to generate some random matrices and vectors that we will use along the way.
+
+```{r}
+### DO NOT CHANGE ANYTHING IN THIS CODE CHUNK!!!
+
+M_orig = read.csv("https://www.dropbox.com/scl/fi/fb2qzfn0zloqy8mtof138/img.txt?rlkey=kpsqo5wxkcj22zs5jaqfhw0a5&st=co69vazu&dl=1", header = FALSE)
+M = as.matrix(M_orig)
+
+
+n = nrow(M)
+p = ncol(M)
+
+set.seed(123)
+A <- diag(rnorm(p))
+set.seed(456)
+B <- tcrossprod(as.matrix(array(rnorm(25), c(5,5))))
+set.seed(789)
+x <- abs(rnorm(p))
+set.seed(101)
+y <- rnorm(n)
+set.seed(112)
+H <- as.matrix(array(rnorm(n*p), c(n,p)))
+
+```
+
+## Setup
+
+Run the following code chunk to load up your matrix (M), and to generate some random matrices and vectors that we will use along the way.
+
+```{r}
+M
+```
+
+
+## Final Chunk
+
+If we ran the final chunk now...
+
+```{r}
+image(M, col = gray((1:100)/100), asp = 1, axes = FALSE)
+```
+
+## Clues
+
+But following all the clues gives...
+
+```{r}
+M <- M %*% A
+M <- t(t(M)*x)
+Y <- diag(y)
+
+M <- solve(Y) %*% M 
+det <- det(B)
+M <- M + det
+
+evs <- eigen(B)
+M <- M * sum(evs$vectors[,3])
+
+M <- M*t(tcrossprod(x,y))
+svd <- svd(H)
+
+M <- M * (100*svd$u)
+tr <- sum(svd$d)
+
+M = M/tr
+```
+
+## Result
+
+... and then we see:
+
+```{r}
+image(M, col = gray((1:100)/100), asp = 1, axes = FALSE)
+```
+
+## Creation Process
+
+* Needed a **square matrix**
+  -> found a random square image online
+  
+* Lots of arbitrary arithmatic changes
+
+* Include *determinant* and *inverse* and *SVD*
+  -> had to make extra matrices
+  
+* Reverse the order
+
+## Pros
+
+* Clear **right answer**
+
+* Image-based result is fun
+
+* Forces **learning goal** of careful row/column treatment
+
+## Cons
+
+* No **visible progress**
+
+* Can **skip steps** and arrive at correct image
+
+* Particularly difficult to make, because many matrix operations are **not reversible**.
+
+# Reflections and Advice
+
+## Warm-ups
+
+These could be...
+
+* ... **setup:** preparing data for the puzzle.
+
+* ... **mini-tasks:** trying things in bite-sized form before doing them in the puzzle.
+
+* ... **quickstart:** doing the first few steps of the puzzle together or with more guidance.
+
+## Making your own puzzles
+
+1. Pick an answer that you find **fun**!
+
+2. Start with the answer, then **mess around with it**.
+
+3. Copy your code, **put it in reverse order**, run it.
+
+4. Fix the pieces that were not **reversible**.
+
+5. Make specific tweaks to include specific **learning goals**.
+
+6. Write **clear and specific** clues/steps.
+
+7.  **Test, test, test**
+
+## Cautionary tales
+
+* Small typos are a **disaster**
+
+* The *code order in notebook* problem can be frustrating to new learners
+
+* Ease of *auto-grading* also means ease of *cheating*
+
+* These take **much longer** to make than an ordinary class activity.
+
+* Students won't get your hip references.
+
+## With a capital T
+
+![](https://i.makeagif.com/media/1-27-2022/WkhwE8.gif)
+
+
+## Why it's worth it
+
+* Working **towards a goal** is better motivation than an arbitrary "try it" task.
+
+* Creates a **us vs puzzle** student teamwork mentality.
+
+* The payoff of **decoding the puzzle** is SO satisfying.
+
+* Students will learn about your hip references.
+
+## After decodeR:
+
+![](https://y.yarn.co/20270e73-1e9d-4870-bc8d-3c16d5b521be_text.gif)
