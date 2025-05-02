@@ -1,0 +1,17 @@
+.circular-img {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+strong {
+  color: #66ccff; /* light blue */
+}
+
+em {
+  color: #99cc99; /* light green */
+}

@@ -1,0 +1,562 @@
+---
+title: "**Teaching Intermediate R**"
+subtitle: ""
+author: "Kelly Bodwin, California Polytechnic State University"
+format: 
+  revealjs:
+    theme: dark
+    css: styles.css
+editor: visual
+---
+
+
+# What is *Intermediate R*?
+
+## Is it this?
+
+```{r}
+#| eval: false
+#| echo: true
+output$plot <- renderPlot({
+  req(input$var)
+  ggplot(data(), aes_string(input$var)) +
+    geom_histogram()
+})
+```
+
+## ... or this?
+
+```{r}
+#| eval: false
+#| echo: true
+
+result <- dt[
+  score > 50 & !is.na(category),
+  .(mean_score = mean(score), n = .N),
+  by = .(category, region)
+][order(-mean_score)
+ ][, rank := .I
+ ][n > 10]
+
+
+```
+
+## ... or this?
+
+```{r}
+#| eval: false
+#| echo: true
+
+result <- data_main %>%
+  left_join(meta_info, by = "id") %>%
+  pivot_longer(cols = starts_with("score_"), names_to = "metric", values_to = "score") %>%
+  filter(!is.na(score)) %>%
+  group_by(group, metric) %>%
+  summarize(mean_score = mean(score), .groups = "drop") %>%
+  pivot_wider(names_from = metric, values_from = mean_score) %>%
+  inner_join(group_labels, by = "group") %>%
+  arrange(desc(overall))
+
+
+```
+
+# Our answer: YES!
+
+## Who are we?
+
+::: {.columns layout-ncol=3}
+::: {.column}
+![](images/theobold.jpg){.circular-img fig-align="center"}
+Allison Theobold
+
+![](images/mann.jpg){.circular-img fig-align="center"}
+Charlotte Mann
+:::
+
+::: {.column}
+![](images/robinson.jpg){.circular-img fig-align="center"}
+Emily Robinson
+
+![](images/rehnberg.jpeg){.circular-img fig-align="center"}
+Zoe Rehnberg
+:::
+
+::: {.column}
+![](images/schedler.jpg){.circular-img fig-align="center"}
+Julia Schedler
+
+
+![](images/barrett.jpeg){.circular-img fig-align="center"}
+Tyson Barrett
+
+:::
+:::
+
+Funding from the **Noyce School of Computing** at Cal Poly.
+
+
+
+
+# What is *Intro R*?
+
+## Plenty of resources...
+
+::: {.columns layout-ncol=2}
+::: {.column}
+
+![](images/r4ds.jpg)
+
+:::
+::: {.column}
+![](images/book_of_r.jpg)
+:::
+:::
+
+## ... and generally agreed-upon topics.
+
+* Basics of coding: **variables and objects**; **loops and conditionals**; etc.
+
+* Installing and loading **packages**
+
+* Object **types** and **structures**
+
+* Loading and examining **data**
+
+* Basic **visualization**
+
+* Data **wrangling** ("Big 5" tidyverse verbs, or equivalent)
+
+
+# What is *Advanced R*?
+
+## Is it *just* programming?  Of course not!
+
+![](images/advR.jpg){fig-align="center"}
+
+# What is *Intermediate R*?
+
+## *Intermediate R* is NOT *Intermediate Statistics*
+
+* The hardest part of fitting statistical models in R is the statistical concepts and interpretation not the coding.
+
+*  "[Statistical Topic] with R" is not the same class!
+
+* **Our course focuses on _R Skills_ and requires only _second-year statistics_ knowledge.**
+
+
+## *Intermediate R* is **non-linear**
+
+* It is not a bridge between *Intro R* and *Advanced R*
+
+* It is not a set of skills that builds progressively
+
+* It *is* a collection of learning paths (sometimes overlapping) towards a specific end goal.
+
+* **Our course has _three units_ that can be rearranged _modularly_**
+
+
+## *Intermediate R* is **defined by goals**
+
+* Different R learners have wildly different needs.
+
+* There is no single skill that every Intermediate R user must know!
+
+* Instead, identify a **use case** and **goal** that is not achievable with Intro R skills, and fill in the missing skills.
+
+* **Our course is _project-driven_, not exam or assignment based.**
+
+
+## The structure:
+
+
+```{r}
+library(DiagrammeR)
+
+grViz("
+digraph flowchart {
+  graph [rankdir = TB]  // left-to-right layout
+
+  // Nodes
+  node [shape = box, style = \"rounded,filled\", fontname = Helvetica]
+
+  A [label = 'Intro R', fillcolor = 'palegreen1']
+  B1 [label = 'R Programming', fillcolor = 'cadetblue1']
+  B2 [label = 'Intermediate R for DS', fillcolor = 'cadetblue1']
+  B3 [label = 'Extensions and Deliverables', fillcolor = 'cadetblue1']
+  C1 [label = 'Advanced R (Wickham)', fillcolor = 'plum1']
+  C2 [label = 'Advanced Statistical Computing', fillcolor = 'plum1']
+  C3 [label = 'Multilingual Projects', fillcolor = 'plum1']
+  
+  // Rank groupings to align nodes horizontally
+  {rank = same; B1; B2; B3}
+  {rank = same; C1; C2; C3}
+
+  // Edges
+  A -> B1
+  A -> B2
+  A -> B3
+
+  B1 -> C1
+  B2 -> C2
+  B3 -> C3
+}
+")
+```
+
+# Three Modular Units
+
+:::{.columns layout-ncol=3}
+:::{.column}
+![](images/R-data-2.png){.circular-img fig-align="center"}
+Data Science
+:::
+
+:::{.column}
+![](images/R-prog.png){.circular-img fig-align="center"}
+Programming
+:::
+
+:::{.column}
+![](images/R-deliv.png){.circular-img fig-align="center"}
+Deliverables
+:::
+:::
+
+
+# Unit A: Intermediate **R for Data Science**
+
+![](images/R-data-2.png){.circular-img fig-align="center"}
+
+## Unit A: Intermediate **R for Data Science**
+
+## Learning Objectives
+
+1. Manage, process, and load data from **non-tabular** and **non-local sources**.
+
+2. Clean and prepare **messy and unstructured data**, including handling missing values, and the use of **regular expressions** to extract information from text data.
+
+3. Use **joins** to combine multiple datasets with many-to-many relationships.
+
+4. Use complex data wrangling pipelines, including **multiple pivots** and/or **multiple grouping levels**, to wrangle data.
+
+5. Produce visualizations beyond basic geometries, including **maps** and **annotated** plots.
+
+
+## Unit A Project
+
+Students will produce a **stylized, publication-ready report** that performs **exploratory data analysis** to address specific research questions.  
+
+Data for the report will be taken from multiple **online** and **non-csv** sources, and will require the use of **regular expressions** to collect, clean, or wrangle their data. 
+
+Research questions will be provided that require **complex, multi-step data wrangling**, and results should be communicated using **complex and polished visualizations**.
+
+
+## Unit A Project - Example
+
+**Regional Differences in Fast Food Preference**
+
+. . . 
+
+*Data:* Refer to [this dataset](https://www.kaggle.com/datasets/khushishahh/fast-food-restaurants-across-us) of fast food locations across the US.  Then, use Yelp's [open dataset for education](https://business.yelp.com/data/resources/open-dataset/) to find reviews and other information pertaining to fast food restaurants.
+
+
+## Unit A Project - Example
+
+**Regional Differences in Fast Food Preference**
+
+. . . 
+
+*Research Questions:*
+
+* Are certain fast food brands *more prevalent* in different regions of the US than others?
+
+* Are certain fast food chains *more highly rated* in different regions of the US than others?
+
+* Do reviewers use *different language* in their reviews in different regions?
+
+* Do customers have *different priorities* for what they look for in fast food restaurants in different regions?
+
+# Unit A skills and resources
+
+## Non-tabular and non-local data
+
+* `jsonlite` and `XML` packages for hierarchical data structures.
+
+* `odbc`, `DBI`, and `dbplyr` for cloud database-stored data
+
+* `duckdb` and `arrow` for local database storage.
+
+* `data.table` for large in-memory data
+
+
+## Messy and unstructured data
+
+* `naniar` for dealing with missing values
+
+* `stringr` and [regular expressions](https://r4ds.hadley.nz/regexps.html) for processing text variables
+
+* Basic content from [Text Mining in R](https://www.tidytextmining.com/) and the `tidytext` package
+
+* [Data cleaning principles](https://nceas.github.io/sasap-training/materials/reproducible_research_in_r_fairbanks/hands-on-clean-and-integrate-datasets.html) from *Reproducible Analysis with R*.
+
+## Multiple datasets joining
+
+* `*_join()` functions from `dplyr`
+
+* Concepts of *mutating joins* and *filtering joins* ([R4DS Chapter 19](https://r4ds.hadley.nz/joins.html))
+
+* `dbplyr` and/or `arrow` to perform joins at database level
+
+## Complex data wrangling pipelines
+
+* Creation and matching of *keys* in relational data
+
+* Pivoting with `pivot_*()` functions from `tidyr` (content needed!)
+
+* `group_by()` to `mutate()` pipeline constructions
+
+* Use of *vectorized functions* or `map/apply` inside `mutate()`
+
+* Iteration with `purrr` or `apply` functions.
+
+
+## More advanced visualizations
+
+* `geom_text()` and `geom_annotate()` for annotations
+
+* New plot types from ggplot helpers - e.g. ridgelines from `ggridges`; alluvial plots with `ggsankey`, radar plots with `fmsb` and `ggradar`.
+
+* Chloropleths with `leaflet` and `sf`.
+
+* Great resource: [R Graph Gallery](https://r-graph-gallery.com/)
+
+
+# Unit B: **R Programming**
+
+![](images/R-prog.png){.circular-img fig-align="center"}
+
+## Learning Goals
+
+* Apply **function creation** and **code design** techniques
+
+* Engage in **algorithmic thinking**, including **iteration**.
+
+* Consider **speed** and **efficiency** concerns in code tasks.
+
+* Develop a **reproducible workflow** for code development in R.
+
+* Engage in **unit testing** and **code review**, including of others' code.
+
+## Unit B Project
+
+Students will create a working and installable **R package** that is well-documented and tracked via version control. The package must include a demonstration document (or "vignette") and several basic informal unit tests.
+
+The package should provide well-designed and user-friendly **functions** to streamline a data collection, wrangling, and/or analysis task.
+
+Code design should consider issues of **efficiency** and should demonstrate both *tidyverse* and *non-tidyverse* syntax fluency.
+
+
+## Unit B Project - Example
+
+> Creating your own webscraping API
+
+. . . 
+
+Create an R package that provides functions to scrape, clean, and wrangle data from the [McDonald's menu](https://www.mcdonalds.com/us/en-us/full-menu.html).  Then, provide a vignette document demonstrating use of this package.  This package must be hosted on GitHub in proper installable format.
+
+## Unit B Project - Example
+
+> Creating your own webscraping API
+
+. . . 
+
+Your code and/or vignette must:
+
+* Include at least one use of iteration with `purrr`
+
+* Include use of `data.table` code for large data preparation tasks.
+
+* Be well-commented and code reviewed by peers.
+
+# Unit B skills and resources
+
+## Function creation and code design
+
+* [R Packages](http://r-pkgs.org/) textbook, first section. (Wickham and Bryan)
+
+* [Code Smells and Feels](https://youtu.be/7oyiPBjLAWY) talk by Jenny Bryan
+
+* [R4DS Chapter 20](https://r4ds.hadley.nz/functions.html)
+
+
+## Algorithmic thinking and iteration
+
+* [R4DS Chapter 26](https://r4ds.hadley.nz/iteration.html)
+
+* [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/profiling-r-code.html) 
+
+* *CS 101* resources for algorithms (content needed!)
+
+* Create methods from scratch: basic linear regression, kmeans clustering, generative art, bootstrapping or randomization tests.
+
+
+## Speed and efficiency
+
+* Use `tictoc` for informal speed testing; `proc.time()` for more specific speed testing; or `profileR` for full profiling.
+
+* [Advanced R Chapter 23](https://adv-r.hadley.nz/perf-measure.html)
+
+* [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/profiling-r-code.html) 
+
+* `data.table` for many groupings and concise syntax (content coming soon!)
+
+## Reproducible workflow
+
+* [Happy Git with R](https://happygitwithr.com/) textbook
+
+* Teacher resource: [GitHub Classroom](https://classroom.github.com/) for providing skeleton code and controlling student repos.
+
+* `testthat` for creating formal unit tests.
+
+* `roxygen2` for function documentation
+
+## Unit testing and code review
+
+* [R Packages Chapter 13](https://r-pkgs.org/testing-basics.html)
+
+* [Functional programming and unit testing for data munging with R](https://b-rodrigues.github.io/fput/unit-testing.html) online textbook
+
+* *Computer science resources* for code review principles (content needed!)
+
+* [Code testing and review](https://carpentries-incubator.github.io/managing-computational-projects/13-codereview.html) content from the *Data Carpentries*.
+
+## A few stretch goals
+
+* Package passes *CRAN* checks.
+
+* Use of *object-oriented programming*
+
+* Advanced *debugging*, e.g. with `debugonce()` or `browser()`
+
+# Unit C: **Extensions and Deliverables in R**
+
+![](images/R-deliv.png){.circular-img fig-align="center"}
+
+## Learning Goals
+
+* Incorporate **interactivity** into data reports.
+
+* Adopt **extensions** from peripheral software and packages, such as `quarto`.
+
+* Add **statistical** elements to data analysis pipeline.
+
+* Produce **production-quality** plots and tables.
+
+
+## Unit C Project
+
+Students will create an **interactive dashboard** that integrates advanced R features, such as Shiny, Quarto dashboards, or Plotly, to explore and communicate a research question effectively.  
+
+The dashboard will include **statistical results** that are well-summarize, well-visualized, and well-interpreted.
+
+## Unit C Project - Example
+
+**Fast Food Preferences at McDonald's**
+
+. . . 
+
+Using your Yelp analyses from *Unit A* and your menu analyses from *Unit B*, create a dashboard to understand **trends and preferences for McDonald's customers**.  The dashboard must be *deployed* for online access.
+
+## Unit C Project - Example
+
+**Fast Food Preferences at McDonald's**
+
+. . . 
+
+
+Your dashboard must be *interactive* and *accessible* to non-technical audiences.  It should communicate trends in regions as well as connecting Yelp review language to specific menu items.
+
+You must include an element of results of a *statistical model or test*, communicated to non-technical audiences.
+
+# Unit C skills and resources
+
+
+## Interactivity
+
+* `plotly()` for immediately interactive plots
+
+* `Shiny` for user input
+
+* [Mastering Shiny](https://mastering-shiny.org/) textbook
+
+
+## Extensions and peripheral software
+
+![](logo-quarto.png)
+
+* `Quarto`:  Dashboards, themes, websites, etc. etc.
+
+* `reactjs` for animated visualization
+
+* "Branding" use of css/scss.
+
+
+## Statistical elements
+
+* `tidymodels` for predictive modeling
+
+* `tidyclust` for unsupervised learning
+
+* Bootstrapping or resampling results
+
+
+
+## Production-quality plots and tables
+
+* [Writing custom ggplot themes](https://themockup.blog/posts/2020-12-26-creating-and-using-custom-ggplot2-themes/)
+
+* Annotating plots with `geom_text()` etc.
+
+* `gt()` for better tables
+
+# Modularity
+
+
+## Order of Units
+
+* B -> A:  Begin with webscraping, then incorporate other data and use it for analysis.
+
+* C -> A:  Design a dashboard with simple, Intro R level analyses; then enhance the dashboard with more complex data.
+
+* C -> B:  Create webscraping or data anaysis package, then use it underlying a dashboard.
+
+## Overlap in content
+
+* `data.table` can be emphasized in **A** for wrangling tasks, or in **B** as an efficiency/syntax skill.
+
+* `plotly` can be used in **A** for easy plot upgrade, or in **C** for interactive dashboards
+
+* *Git* and *GitHub* can be introduced in **any Unit**.
+
+* *function writing* can be used to streamline steps in units **A** or **C** before
+
+
+# Takeaways
+
+:::{.columns}
+
+:::{.column}
+
+* Design your *Intermediate R* class around **projects**
+
+* Separate content into **modular units** organized by *goals*.
+
+* Sign up to be notified when the *Course in a Box* is available!
+
+:::
+
+:::{.column}
+
+
+
+![](images/QR.png)
