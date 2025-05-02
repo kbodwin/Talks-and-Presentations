@@ -560,6 +560,8 @@ You must include an element of results of a *statistical model or test*, communi
 
 
 ![](images/QR.png)
+:::
+:::
 
 ## Thank you!
 
