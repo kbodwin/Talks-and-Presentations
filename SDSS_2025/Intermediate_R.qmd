@@ -565,13 +565,13 @@ You must include an element of results of a *statistical model or test*, communi
 
 ## Thank you!
 
-* Find me on BlueSky: bsky.app/profile/kellybodwin.com
+* [Find me on BlueSky](bsky.app/profile/kellybodwin.com)
 
-* Find me on LinkedIn: https://www.linkedin.com/in/kelly-bodwin-9009061a/
+* [Find me on LinkedIn](https://www.linkedin.com/in/kelly-bodwin-9009061a/)
 
-* Find me on Mastodon: @kellybodwin@fosstodon.org
+* [Find me on Mastodon](@kellybodwin@fosstodon.org)
 
-* Find these slides: https://kbodwin.github.io/Talks-and-Presentations/SDSS_2025/Intermediate_R.html
+* [Find these slides](https://kbodwin.github.io/Talks-and-Presentations/SDSS_2025/Intermediate_R.html)
 
 * Thanks to:
     + My awesome collaborators
