@@ -541,7 +541,7 @@ You must include an element of results of a *statistical model or test*, communi
 * *function writing* can be used to streamline steps in units **A** or **C** before
 
 
-# Takeaways
+## Takeaways
 
 :::{.columns}
 
@@ -565,4 +565,15 @@ You must include an element of results of a *statistical model or test*, communi
 
 * Find me on BlueSky: bsky.app/profile/kellybodwin.com
 
-* Find these slides: https://github.com/kbodwin/Talks-and-Presentations/tree/master/SDSS_2025
+* Find me on LinkedIn: https://www.linkedin.com/in/kelly-bodwin-9009061a/
+
+* Find me on Mastodon: @kellybodwin@fosstodon.org
+
+* Find these slides: https://kbodwin.github.io/Talks-and-Presentations/SDSS_2025/Intermediate_R.html
+
+* Thanks to:
+    + My awesome collaborators
+    + Noyce School of Computing
+    + NSF POST Grant #1005559
+    + Everyone who shares their great R materials online!
+
