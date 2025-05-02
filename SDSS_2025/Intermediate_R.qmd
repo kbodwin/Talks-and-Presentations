@@ -560,3 +560,9 @@ You must include an element of results of a *statistical model or test*, communi
 
 
 ![](images/QR.png)
+
+## Thank you!
+
+* Find me on BlueSky: bsky.app/profile/kellybodwin.com
+
+* Find these slides: https://github.com/kbodwin/Talks-and-Presentations/tree/master/SDSS_2025
