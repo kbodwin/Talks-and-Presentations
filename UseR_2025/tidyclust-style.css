@@ -1,0 +1,26 @@
+/* Set general background color */
+.reveal .slides {
+    color: #2f2f2f; /* Dark gray text for good readability */
+}
+
+/* Use the 'tidyclust' colors and font */
+body {
+    font-family: "Roboto", sans-serif; /* Default font from tidyclust */
+    color: #333333; /* Dark gray text color */
+}
+
+h1, h2, h3, h4 {
+    color: #0066CC; /* Tidyclust blue for headings */
+}
+
+/* Highlight text or elements */
+.highlight {
+    color: #D14B66; /* Tidyclust pinkish color for highlights */
+    font-weight: bold;
+}
+
+/* Custom slide transitions */
+.reveal .slides > section {
+    transition: transform 1s ease-in-out;
+}
+

@@ -1,0 +1,819 @@
+---
+title: "Adding models to `tidyclust`"
+subtitle: "Kelly Bodwin, California Polytechnic State University"
+author: "These slides: kbodwin.github.io/Talks-and-Presentations/UseR_2025/slides.html"
+format: 
+  revealjs:
+    incremental: true
+title-slide-attributes:
+    data-background-image: "images/balloons.jpeg"  # Path to your background image
+    data-background-size: "cover"  # Optional: ensures the image covers the entire slide
+    data-background-opacity: "50%" 
+filters:
+  - flourish
+execute:
+  eval: false
+  echo: true
+css: tidyclust-style.css
+---
+
+```{r}
+#| include: false
+library(tidymodels)
+```
+
+
+
+# What is `tidyclust`?
+
+## `tidymodels`: A unified framework for predictive models
+
+**Specify:**
+
+```{r}
+#| flourish:
+#|     - target: "linear_reg"
+lin_reg <- linear_reg(x ~ y, data = dat)
+```
+
+. . .
+
+
+**Fit:**
+
+```{r}
+lr_fitted <- lin_reg |> fit(dat)
+```
+
+. . .
+
+
+**Predict:**
+
+```{r}
+lr_fitted |> predict(new_dat)
+```
+
+. . .
+
+[https://www.tidymodels.org/](https://www.tidymodels.org/) - Max Kuhn, Hannah Frick, Emil Hvitfeldt, Simon Couch
+
+
+## `tidyclust`: A unified framework for **unsupervised** models
+
+
+**Specify:**
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "num_clusters"
+#|          - "k_means"
+km_clust <- k_means(~ y, num_clusters = 3, data = dat)
+```
+
+. . .
+
+
+**Fit:**
+
+```{r}
+km_fitted <- km_clust |> fit(dat)
+```
+
+. . .
+
+
+**Predict:**
+
+```{r}
+km_clust |> predict(new_dat)
+```
+
+. . .
+
+[https://tidyclust.tidymodels.org/](https://tidyclust.tidymodels.org/) - Emil Hvitfeldt, me
+
+
+## Why we like this
+
+* The same **data preprocessing** (a.k.a. `recipe`) can be used with many **model specifications**.
+
+* Shortcuts for **cross-validation** and **tuning**. 
+
+* *(whatever that means in an unsupervised setting...)*
+
+* More consistency of **user input**.
+
+## Example: Many k-means functions!
+
+::::{.columns}
+
+:::{.column}
+
+In Base R (`stats`):
+
+```{r}
+kmeans(x, 
+       centers, 
+       iter.max = 10,
+       nstart = 1,
+       algorithm = c("Hartigan-Wong", 
+                     "Lloyd", 
+                     "Forgy",
+                     "MacQueen"), 
+       trace = FALSE)
+```
+
+:::
+
+:::{.column}
+
+In the `ClusterR` package:
+
+```{r}
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+:::
+
+::::
+
+## Adding a model to `tidyclust`
+
+* *Adding a model* means creating a new **specification** function 
+
+* This unifies many **engines** that use the same(ish) algorithm.
+
+* Just a simple little wrapper function in `tidyclust` style?
+
+. . .
+
+![](https://media.tenor.com/ZfhT82UtSCkAAAAM/yes-man-no-man.gif)
+
+
+# Expanding `tidyclust` {background-image="images/balloons.jpeg" background-opacity="50%"}
+
+
+## Cal Poly MS Student projects
+
+![](./images/minions.jpg){width = 2in}
+*Andrew Kerr, Jacob Perez, Brendan Callendar, me*
+
+## Jacob Perez: BIRCH
+
+**BIRCH** is an algorithm that aggolmeratively pre-clusters large data into *clustering factors*, then applies a traditional clustering method.
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "birch"
+
+brch_spec <- birch(radius_threshold = 1.5,
+                        branching_factor = 500,
+                        max_leaf = 500,
+                        global_method = "k_means",
+                        num_clusters = 7) 
+
+```
+
+## Brendan Callendar: DBSCAN and Gaussian Mixtures
+
+[brendad8/tidyclust](https://github.com/brendad8/tidyclust)
+
+**DBSCAN** is a density-based clustering that combines points withing a particular radius.
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "db_clust"
+
+db_spec <- db_clust(radius = 0.35, min_points = 10)
+```
+
+. . .
+
+**Gaussian Mixed Models** fits a parametric mixture model to the data.
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "gm_clust"
+
+gm_spec <- gm_clust(
+  num_clusters = 3,
+  circular = FALSE,
+  zero_covariance = FALSE,
+  shared_orientation = TRUE,
+  shared_shape = FALSE,
+  shared_size = FALSE
+)
+
+```
+
+
+
+
+## Andrew Kerr: Frequent Itemset Mining
+
+[Wander03/tidyclust](https://github.com/Wander03/tidyclust)
+
+**Frequent Itemset Mining** and **Association Rules** are unsupervised approaches to clustering *columns*
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "freq_itemsets"
+
+fi_spec <- freq_itemsets(
+  min_support = 0.05,
+  mining_method = "eclat"
+  )
+```
+
+
+
+
+## Code and Housekeeping
+
+1. Copy-paste from existing specifications to create new `tidyclust` **class** for new model.
+
+2. Write helper functions for managing **engine fits** and **predicts**
+
+3. Create **tuning** infrastructure in `tidyclust` and `dials`
+
+. . .
+
+[My checklist here.](https://docs.google.com/document/d/1kZjrLWGTP7rJ7lan8iukRfZc4xCfulVcth0LLwuyOZ0/edit?usp=sharing)
+
+## Big Decisions
+
+1. What will be the exposed **hyperparameters** and their defaults?
+
+2. What **algorithm variants** will be used under the hood?
+
+3. What does **prediction** look like?
+
+
+# Hyperparameters {background-image="images/balloons.jpeg" background-opacity="50%"}
+
+## Which should be **exposed**?
+
+Most *engines* have many, many parameters:
+
+```{r}
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+## Which should be **exposed**?
+
+Some control **initial conditions**...
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "initializer"
+#|          - "CENTROIDS"
+#|          - "seed"
+
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+## Which should be **exposed**?
+
+some control details of the mathematical *fitting algorithm*...
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "tol"
+#|          - "tol_optimal_limit"
+#|          - "max_iters"
+
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+## Which should be **exposed**?
+
+... some control *console output* ...
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "verbose"
+
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+## Which should be **exposed**?
+
+... some control *prediction* ...
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "fuzzy"
+
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+## Which should be **exposed**?
+
+... and only a few are **true hyperparameters**.
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "clusters"
+
+KMeans_rcpp(
+  data,
+  clusters,
+  num_init = 1,
+  max_iters = 100,
+  initializer = "kmeans++",
+  fuzzy = FALSE,
+  verbose = FALSE,
+  CENTROIDS = NULL,
+  tol = 1e-04,
+  tol_optimal_init = 0.3,
+  seed = 1
+)
+```
+
+
+## Rules of Thumb
+
+Expose arguments that...
+
+* Definitely require **user decision-making** every time (`num_cluster`)
+
+* Might be **tuned**. (`radius`)
+
+* Change the **inherent philosophy** of the algorithm (`linkage_method`)
+
+## What's left?
+
+**Do NOT expose:**
+
+* Seeds. (Use seed setting on your whole process, not by model.)
+
+* Mathematical optimization settings.
+
+* Console output
+
+**Maybe expose:**
+
+* Initializations (if they might be tuned)
+
+* Prediction approaches (if they change tracking during *fit*)
+
+## Unexposed parameters
+
+Remember, *engine arguments* can always still be changed using `set_engine()`!
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "max_iters"
+#|          - "initializer"
+km_spec <- k_means(num_clusters = 3) |>
+  set_engine("ClusterR",
+             max_iters = 1000,
+             initializer = "kmeans++")
+```
+
+
+
+## Naming and Parametrization
+
+Now, how are we going to **combine** existing arguments into a single **coherent** set?
+
+. . .
+
+Example: Gaussian Mixed Model constraints
+
+```
+modelNames	
+A vector of character strings indicating the models to be fitted in the EM phase of clustering. The default is:
+
+for univariate data (d = 1): c("E", "V")
+
+for multivariate data (n > d): all the models available in mclust.options("emModelNames")
+
+for multivariate data (n <= d): the spherical and diagonal models, i.e. c("EII", "VII", "EEI", "EVI", "VEI", "VVI")
+
+```
+
+## Naming and Parametrization
+
+* Do we keep the existing format of the `modelNames` argument, or **reparametrize**?
+
+* **Decision:** Reparametrize!
+
+* The various combinations ("EII", "VEI", etc.) correspond to:
+    + Do the mixture models have *any covariance* across dimensions?
+    + Do all mixtures have the *same covariance*?
+    + ... etc.
+    
+    
+## Gaussian Mixture Model Options
+
+![](./images/GMM_1.png)
+
+
+## Gaussian Mixture Model Options
+
+![](./images/GMM_2.png)
+
+
+## Naming and Parametrization
+
+Things to think about...
+
+* **Self-documenting** arguments.
+
+* **Generalizability** across implementations (*engines*)
+
+* **Decision support** for users - "upgrades" from defaults are clear.
+
+* **Easy tuning** - booleans may be better than strings?
+
+## Defaults and Tuning
+
+Other housekeeping...
+
+* What will be the **default values** for all the *exposed* parameters?  Why?
+
+* Do we want to **override** any defaults of *unexposed* parameters?  Why?  *(This appears in the `fit()` helpers.)*
+
+* What will be the **default tuning grid**?  Log scale?  What range? etc.  *(in the `dials()` package)*
+
+* Does the tuning grid **depend on the dataset** or can we establish a global default?
+
+
+# Fit/Predict Algorithms {background-image="images/balloons.jpeg" background-opacity="50%"}
+
+## `fit` helpers and overrides
+
+**Quick quiz:** How does the `stats::kmeans()` function initialize centroids?  How about `ClusterR::KMeans_rcpp()`?
+
+. . .
+
+**WRONG!** 
+
+. . .
+
+*(probably, I dunno, maybe the author is in the audience)*
+
+. . .
+
+*(or you clicked ahead in my slides)*
+
+. . .
+
+`stats::kmeans()`
+
+1. Assign each observation a random number `1:k`
+
+2. Compute "centroid" of each "cluster".
+
+
+
+
+## `fit` helpers and overrides
+
+`ClusterR::KMeans_rcpp()`:
+
+```
+‘k-means++’ : selects initial cluster centroids using sampling based on an empirical probability distribution of the points’ contribution to the overall inertia. This technique speeds up convergence. The algorithm implemented is “greedy k-means++”. It differs from the vanilla k-means++ by making several trials at each sampling step and choosing the best centroid among them.
+```
+
+. . .
+
+
+Should we let the **engine** decide or force a **unified** default?
+
+
+## `predict` helpers and overrides
+
+**Easy mode: k-means**
+
+* How to predict the *cluster assignment* of a **new observation**?
+
+* The k-means algorithm clusters by nearest centroid...
+
+* ... so just assign the point to a cluster based on nearest centroid!
+
+## `predict` helpers and overrides
+
+**Hard mode: Hierarchical Clustering**
+
+* ???????
+
+. . .
+
+```{r}
+.hier_clust_predict_stats <- function(
+  object,
+  new_data,
+  ...,
+  prefix = "Cluster_"
+) {
+  linkage_method <- object$method
+
+  new_data <- as.matrix(new_data)
+
+  training_data <- as.matrix(attr(object, "training_data"))
+  clusters <- extract_cluster_assignment(
+    object,
+    ...,
+    prefix = prefix,
+    call = call("predict")
+  )
+
+  if (linkage_method %in% c("single", "complete", "average", "median")) {
+    ## complete, single, average, and median linkage_methods are basically the
+    ## same idea, just different summary distance to cluster
+
+    cluster_dist_fun <- switch(
+      linkage_method,
+      "single" = min,
+      "complete" = max,
+      "average" = mean,
+      "median" = stats::median
+    )
+
+    # need this to be obs on rows, dist to new data on cols
+    dists_new <- philentropy::dist_many_many(
+      training_data,
+      new_data,
+      method = "euclidean"
+    )
+
+    cluster_dists <- dplyr::bind_cols(data.frame(dists_new), clusters) |>
+      dplyr::group_by(.cluster) |>
+      dplyr::summarize_all(cluster_dist_fun)
+
+    pred_clusts_num <- cluster_dists |>
+      dplyr::select(-.cluster) |>
+      map_dbl(which.min)
+  } else if (linkage_method == "centroid") {
+    ## Centroid linkage_method, dist to center
+
+    cluster_centers <- extract_centroids(object) |> dplyr::select(-.cluster)
+
+    dists_means <- philentropy::dist_many_many(
+      new_data,
+      cluster_centers,
+      method = "euclidean"
+    )
+
+    pred_clusts_num <- apply(dists_means, 1, which.min)
+  } else if (linkage_method %in% c("ward.D", "ward", "ward.D2")) {
+    ## Ward linkage_method: lowest change in ESS
+    ## dendrograms created from already-squared distances
+    ## use Ward.D2 on these plain distances for Ward.D
+
+    cluster_centers <- extract_centroids(object)
+    n_clust <- nrow(cluster_centers)
+    cluster_names <- cluster_centers[[1]]
+    cluster_centers <- as.matrix(cluster_centers[, -1])
+
+    d_means <- map(
+      seq_len(n_clust),
+      \(.x)
+        t(
+          t(training_data[clusters$.cluster == cluster_names[.x], ]) -
+            cluster_centers[.x, ]
+        )
+    )
+
+    d_new_list <- map(
+      seq_len(nrow(new_data)),
+      function(new_obs) {
+        map(
+          seq_len(n_clust),
+          \(.x)
+            t(
+              t(training_data[clusters$.cluster == cluster_names[.x], ]) -
+                new_data[new_obs, ]
+            )
+        )
+      }
+    )
+
+    n <- nrow(training_data)
+
+    change_in_ess <- map(
+      d_new_list,
+      function(v) {
+        map2_dbl(
+          d_means,
+          v,
+          \(.x, .y) sum((n * .x + .y)^2 / (n + 1)^2 - .x^2)
+        )
+      }
+    )
+
+    pred_clusts_num <- map_dbl(change_in_ess, which.min)
+  } else {
+    cli::cli_abort(
+      "linkage_method {.val {linkage_method}} is not supported for prediction."
+    )
+  }
+  pred_clusts <- unique(clusters$.cluster)[pred_clusts_num]
+
+  pred_clusts
+}
+```
+
+
+## `predict` helpers and overrides
+
+**Medium mode: DBSCAN**
+
+In the `DBSCAN` engine:
+
+* **Fitting**:  
+    + Find all *core points* (at least `min_n` other points within `radius` away)
+    + Find all *boundary points* (within `radius` of a core point)
+    + Everything else is an *outlier*
+    + "Blobs" are clusters.
+
+## `predict` helpers and overrides
+
+**Medium mode: DBSCAN**
+
+In the `DBSCAN` engine:
+    
+* **Predicting**:
+    + If a new point is within `radius` of a non-outlier, put it in that cluster
+    
+## DBSCAN
+
+![](./images/db_scan.png)
+
+## `predict` helpers and overrides
+
+**Medium mode: DBSCAN**
+
+In the `tidyclust::db_clust()` implementation:
+    
+    
+* **Predicting**:
+    + If a new point is within `radius` of a **CORE POINT**, put it in that cluster
+
+
+## `predict` helpers and overrides
+
+```{r}
+#| flourish:
+#|     - target: 
+#|          - "dbscan::frNN"
+
+.db_clust_predict_dbscan <- function(object, new_data, prefix = "Cluster_") {
+
+  is_core <- attr(object, "is_core")
+  training_data <- attr(object, "training_data")
+  cp <- training_data[is_core,]
+  cp_clusters <- object$cluster[is_core]
+  eps <- attr(object, "radius")
+
+  if (sum(is_core) == 0) {
+    clusters <- (rep(0, nrow(new_data)))
+    n_clusters <- 1
+  } else {
+    nn <- dbscan::frNN(cp,
+               query = new_data,
+               eps = eps,
+               sort = TRUE)
+
+    clusters <- vapply(
+      nn$id, function(nns) if (length(nns) == 0L) 0L else cp_clusters[nns[1L]], integer(1L)
+    )
+
+    n_clusters <- length(unique(object$cluster[object$cluster != 0])) + 1
+  }
+
+  make_predictions_w_outliers(clusters, prefix, n_clusters)
+
+}
+```
+
+# The Golden Rule: `predict()` and `fit()` should always agree!!!
+
+
+
+# Unsupervised Learning Beyond Clustering {background-image="images/balloons.jpeg" background-opacity="50%"}
+
+## Beyond Clustering
+
+* Not all clustering methods are a **partition** (one cluster for each point)
+    + Outliers (DBSCAN!)
+    + Overlap of cluster
+    + Cluster extraction
+
+
+* Not all clustering methods act on **rows/observations**
+    + Itemset mining: Get groups of *columns*
+    + Association rule mining: Get *rules* for *columns*
+    + Biclustering: Get groups of *row/column sets*
+
+# So, what now? {background-image="images/balloons.jpeg" background-opacity="50%"}
+
+## Want more `tidyclust`?  Make it!
+
+* If you have a favorite algorithm that isn't implemented, you *can* build it!
+
+* (or start to, and we can help!)
+
+* The hard part is not (usually) the **coding**: it's thinking deeply about the **decisions** your design scaffolds.
+
+* (Also: unsupervised tuning?????)
+
+* Lots of documentation: [https://tidyclust.tidymodels.org/](https://tidyclust.tidymodels.org/)
+
+## Chatting about this is my absolute favorite.  Find me.
+
+**Thank you!**
+
+[🌐 GitHub: kbodwin](https://github.com/kbodwin)  
+
+[🦋 BlueSky: @kellybodwin.com](https://https://bsky.app/profile/kellybodwin.com)  
+
+[🔗 LinkedIn: kelly-bodwin-9009061a](https://www.linkedin.com/in/kelly-bodwin-9009061a/)
+
+[🐘 Fosstodon: @kellybodwin](https://fosstodon.org/@kellybodwin)
