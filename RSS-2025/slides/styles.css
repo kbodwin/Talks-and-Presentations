@@ -1,0 +1,4 @@
+.reveal ul {
+  list-style-type: none;   /* removes the bullet dots */
+  padding-left: 0;         /* optional: aligns text flush left */
+}

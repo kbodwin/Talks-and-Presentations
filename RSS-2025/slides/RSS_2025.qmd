@@ -1,0 +1,168 @@
+---
+title: 'Where "R" we going?'
+subtitle: "The current status of the R language, and lessons from an NSF POSE grant for the `data.table` package."
+author: "Kelly Bodwin, California Polytechnic State University"
+format:
+  revealjs:
+    logo: "./images/hex.png"
+    footer: "kbodwin.github.io/Talks-and-Presentations/"
+    incremental: true  
+    theme: solarized
+    css: styles.css
+embed-resources: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+## Context {.theme-slide2}
+
+-   🔅 `data.table` is an extremely popular R package for **dataset
+    manipulation** and **summarizing** 
+
+-   🔅 **NSF Grant 1005559** (Pathways to Open-Source Ecosystems)
+
+-   "Supports the facilitation, creation and growth of open-source
+    ecosystems for the creation of new technology solutions."
+
+-   🔅 My role: community building, documentation and education,
+    governance and sustainability
+
+## Relevance {.theme-section3 .center}
+
+## R is dying? Not even close... {.theme-slide2}
+
+![](./images/tiobe.png)
+
+(Ranked #14 in 2025; near-tie with e.g. Perl, SQL, PHP, Matlab)
+
+## Where is R cutting edge? {.theme-slide2}
+
+-   🔅 Packages for **specific statistical models**
+
+-   🔅 Readable and **beginner-friendly** data wrangling with the
+    `tidyverse`
+
+-   🔅 Speedy **in-memory data manipulation** with `data.table`
+
+-   🔅 Communities of **domain-specific** packages
+
+## Resources {.theme-section3 .center}
+
+## How the sausage gets made
+
+-   🔅 R is maintained by the **R Core Group**, a team of 20
+    developers...
+
+-   ... **none of these people are paid for their work.**
+
+-   🔅 Large donations to the [R
+    Foundation](https://www.r-project.org/foundation/) have supported R
+    Core in the past.
+
+-   🔅 The [R Contributor Working
+    Group](https://contributor.r-project.org/working-group.html) is
+    helping build a [Contributor
+    Community](https://contributor.r-project.org/)
+
+## What about packages?
+
+-   🔅 The `tidyverse` and `tidymodels` sets are maintained by **paid
+    developers** at Posit, PBC.
+
+-   🔅 Sometimes, funding can come from:
+
+    -   temporary public or private grants
+    -   companies that allow employee "creative time"
+    -   companies that release their internal work openly
+
+-   ... but **almost all** of what you use is made by **community
+    members** with no compensation.
+
+## Reach {.theme-section3 .center}
+
+## The `#rstats` community
+
+-   🔅 Access to **social connections** with other users
+
+-     → ⛅ bsky.app/profile/rdatatable.bsky.social
+
+-     → 🦣 fosstodon.org/@r_data_table
+
+-     → <i class="fa-brands fa-linkedin"></i>
+    linkedin.com/company/data-table-community/
+
+-   🔅 Conferences and meetups (including online) are thriving
+
+-     → [Travel grant for
+    data.table](https://rdatatable-community.github.io/The-Raft/posts/2023-11-01-travel_grant_announcement-community_team/)
+
+-     → Hex stickers - find me!
+
+## Education and accessibility
+
+-   🔅 Blogs, tutorials, and online textbooks
+
+-     → [Blog: The
+    Raft](https://rdatatable-community.github.io/The-Raft/)
+
+-   🔅 Translation projects.
+
+-     → [Grant-funded Translation
+    Project](https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/)
+
+## What "R" you doing to support open-source? {.theme-section3 .center}
+
+## How to help {.theme-slide2}
+
+-   🔅 Open-source work needs **professional recognition**
+
+-     → *Did you cite EVERY package you used in your most recent paper?*
+
+-     → *Do you vote for awards/tenure/promotions for people who develop
+    open-source code?*
+
+## How to help {.theme-slide2}
+
+-   🔅 Open-source work needs **financial support**
+
+-     → [The R Foundation](https://www.r-project.org/foundation/)
+
+-     → [NumFocus](https://numfocus.org/)
+
+-     → [The Linux Foundation](https://www.linuxfoundation.org/)
+
+-     → [ROpenSci](https://ropensci.org/)
+
+-     → Some developers have GitHub, Patreon, or a "Buy me a coffee"
+    button.
+
+## Find me and the `data.table` project! {.smaller}
+
+::::: columns
+::: {.column width="45%"}
+![](./images/headshot_computer.jpg){width="30%"}
+
+⛅ bsky.app/profile/kellybodwin.com
+
+🦣 fosstodon.org/@kellybodwin
+
+🔗 https://www.linkedin.com/in/kelly-bodwin-9009061a/
+
+["Keep R Weird" Keynote](https://www.youtube.com/watch?v=KOQBfC1WPwM&pp=ygUMa2VlcCByIHdlaXJk0gcJCbIJAYcqIYzv)
+:::
+
+::: {.column width="55%"}
+![](./images/hex.png){width="30%"}
+
+⛅ bsky.app/profile/rdatatable.bsky.social
+
+🦣 fosstodon.org/@r_data_table
+
+🔗 linkedin.com/company/data-table-community/
+
+[linktr.ee/rdatatable](linktr.ee/rdatatable)
+
+[Blog: The Raft](https://rdatatable-community.github.io/The-Raft/)
+:::
+:::::
