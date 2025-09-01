@@ -5,7 +5,7 @@ author: "Kelly Bodwin, California Polytechnic State University"
 format:
   revealjs:
     logo: "./images/hex.png"
-    footer: "kbodwin.github.io/Talks-and-Presentations/"
+    footer: "bit.ly/R-RSS-2025"
     incremental: true  
     theme: solarized
     css: styles.css
