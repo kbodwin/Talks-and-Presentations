@@ -28,7 +28,7 @@ editor:
 -   🔅 My role: community building, documentation and education,
     governance and sustainability
 
-## Relevance {.theme-section3 .center}
+# Relevance {.theme-section3 .center}
 
 ## R is dying? Not even close... {.theme-slide2}
 
@@ -47,7 +47,7 @@ editor:
 
 -   🔅 Communities of **domain-specific** packages
 
-## Resources {.theme-section3 .center}
+# Resources {.theme-section3 .center}
 
 ## How the sausage gets made
 
@@ -79,7 +79,7 @@ editor:
 -   ... but **almost all** of what you use is made by **community
     members** with no compensation.
 
-## Reach {.theme-section3 .center}
+# Reach {.theme-section3 .center}
 
 ## The `#rstats` community
 
@@ -110,17 +110,23 @@ editor:
 
 -     → [Grant-funded Translation
     Project](https://rdatatable-community.github.io/The-Raft/posts/2023-10-17-translation_announcement-toby_hocking/)
+    
+-   🔅 Publicly shared education materials
 
-## What "R" you doing to support open-source? {.theme-section3 .center}
+-     → [data.table Workshop](https://paocorrales.github.io/intro-datatable/)
+
+# What "R" you doing to support open-source? {.theme-section3 .center}
 
 ## How to help {.theme-slide2}
 
 -   🔅 Open-source work needs **professional recognition**
 
--     → *Did you cite EVERY package you used in your most recent paper?*
+-     → Did you cite **EVERY package** you used in your most recent paper?
 
--     → *Do you vote for awards/tenure/promotions for people who develop
-    open-source code?*
+-     → Do you vote for *awards/tenure/promotions* for people who develop
+    open-source code?
+    
+-     → Does open-source work satisfy *research expectations* at your institution?
 
 ## How to help {.theme-slide2}
 
