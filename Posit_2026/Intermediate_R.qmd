@@ -156,11 +156,72 @@ digraph flowchart {
   node [shape = box, style = \"rounded,filled\", fontname = Helvetica]
 
   A [label = 'Intro R', fillcolor = 'palegreen1']
-  B2 [label = 'R Programming', fillcolor = 'cadetblue1']
   B1 [label = 'Data Analysis', fillcolor = 'cadetblue1']
+  B2 [label = 'R Programming', fillcolor = 'cadetblue1']
   B3 [label = 'Communication and Deliverables', fillcolor = 'cadetblue1']
-  C2 [label = 'Advanced R (Wickham)', fillcolor = 'plum1']
   C1 [label = 'Advanced Statistical Computing', fillcolor = 'plum1']
+  C2 [label = 'Advanced R (Wickham)', fillcolor = 'plum1']
+  C3 [label = 'R in Production', fillcolor = 'plum1']
+  
+  // Rank groupings to align nodes horizontally
+  {rank = same; B1; B2; B3}
+  {rank = same; C1; C2; C3}
+
+  // Edges
+  A -> B1
+  A -> B2
+  A -> B3
+
+  B1 -> C1
+  B2 -> C2
+  B3 -> C3
+}
+")
+```
+
+
+## Who is "we"?
+
+:::::: {.columns layout-ncol="3"}
+::: column
+![](images/theobold.jpg){.circular-img fig-align="center"} Allison Theobold
+
+![](images/mann.jpg){.circular-img fig-align="center"} Charlotte Mann
+:::
+
+::: column
+![](images/robinson.jpg){.circular-img fig-align="center"} Emily Robinson
+
+![](images/rehnberg.jpeg){.circular-img fig-align="center"} Zoe Rehnberg
+:::
+
+::: column
+![](images/schedler.jpg){.circular-img fig-align="center"} Julia Schedler
+
+![](images/barrett.jpeg){.circular-img fig-align="center"} Tyson Barrett
+:::
+::::::
+
+Funding from the **Noyce School of Computing** at Cal Poly.
+
+## Three parallel pathways
+
+```{r}
+library(DiagrammeR)
+
+grViz("
+digraph flowchart {
+  graph [rankdir = TB]  // left-to-right layout
+
+  // Nodes
+  node [shape = box, style = \"rounded,filled\", fontname = Helvetica]
+
+  A [label = 'Intro R', fillcolor = 'palegreen1']
+  B1 [label = 'Data Analysis', fillcolor = 'cadetblue1']
+  B2 [label = 'R Programming', fillcolor = 'cadetblue1']
+  B3 [label = 'Communication and Deliverables', fillcolor = 'cadetblue1']
+  C1 [label = 'Advanced Statistical Computing', fillcolor = 'plum1']
+  C2 [label = 'Advanced R (Wickham)', fillcolor = 'plum1']
   C3 [label = 'R in Production', fillcolor = 'plum1']
   
   // Rank groupings to align nodes horizontally
@@ -279,6 +340,8 @@ Intermediate *statistics* is not Intermediate *R*.
 
 * Interactivity  
 *Shiny, modules, dashboards, publishing apps, packaging apps*
+
+## Approach your **topics** guided by the **pathway** that serves you.  {.text-panel-slide background-image="images/qm.jpeg" background-size="cover" background-position="center" background-color="#000" background-opacity="0.25"}
 
 ## **Question:** How did *you* level up after your *introductory* class/workshop/book? {.text-panel-slide background-image="images/qm.jpeg" background-size="cover" background-position="center" background-color="#000" background-opacity="0.25"}
 
@@ -424,36 +487,14 @@ that facilitates data insights and exploration.
 :::
 ::::::
 
+# {background-image="images/measles.png" background-size="contain"}
+
 ## **Scaffolded** projects with **regular updates** illustrate the **uses** of what you have learned. {.text-panel-slide background-image="images/ep.jpeg" background-size="cover" background-position="center" background-color="#000" background-opacity="0.25"}
 
  
 # Intermediate R has  </br> **multiple paths**, </br> requires practice with </br> **specific goals**, </br> and needs a </br> **motivating project**. {background-image="images/lb.jpeg" background-size="cover" background-position="center" background-color="#000" background-opacity="0.25"}
 
 
-
-## Whose work is this?
-
-:::::: {.columns layout-ncol="3"}
-::: column
-![](images/theobold.jpg){.circular-img fig-align="center"} Allison Theobold
-
-![](images/mann.jpg){.circular-img fig-align="center"} Charlotte Mann
-:::
-
-::: column
-![](images/robinson.jpg){.circular-img fig-align="center"} Emily Robinson
-
-![](images/rehnberg.jpeg){.circular-img fig-align="center"} Zoe Rehnberg
-:::
-
-::: column
-![](images/schedler.jpg){.circular-img fig-align="center"} Julia Schedler
-
-![](images/barrett.jpeg){.circular-img fig-align="center"} Tyson Barrett
-:::
-::::::
-
-Funding from the **Noyce School of Computing** at Cal Poly.
 
 # {background-image="images/elephant.jpg" background-size="contain" background-position="center}
 
@@ -464,16 +505,21 @@ Funding from the **Noyce School of Computing** at Cal Poly.
 
 For the **complete, polished course** that we just ran:
 
-::: {.fs-4}
-[https://atheobold.github.io/advanced-R-website/](atheobold.github.io/advanced-R-website/)
-:::
+</br>
 
+[https://atheobold.github.io/advanced-R-website/](atheobold.github.io/advanced-R-website/)
+
+</br>
+
+. . .
 
 For the **work-in-progress** public-facing "Playbook":
 
-::: {.fs-4}
+</br>
+
 [https://kbodwin.github.io/intermediate-r-playbook](kbodwin.github.io/intermediate-r-playbook)
-:::
+
+</br>
 
 
 ## Thank you!
