@@ -507,7 +507,7 @@ For the **complete, polished course** that we just ran:
 
 </br>
 
-[https://atheobold.github.io/advanced-R-website/](atheobold.github.io/advanced-R-website/)
+[atheobold.github.io/advanced-R-website/](https://atheobold.github.io/advanced-R-website/)
 
 </br>
 
@@ -517,7 +517,9 @@ For the **work-in-progress** public-facing "Playbook":
 
 </br>
 
-[https://kbodwin.github.io/intermediate-r-playbook](kbodwin.github.io/intermediate-r-playbook)
+[kbodwin.github.io/intermediate-r-playbook](https://kbodwin.github.io/intermediate-r-playbook)
+
+*Currently mostly empty, but actively being populated!*
 
 </br>
 
