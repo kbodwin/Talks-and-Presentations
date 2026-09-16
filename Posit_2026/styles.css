@@ -1,0 +1,75 @@
+.circular-img {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* styles.css */
+.reveal .slides section.text-panel-slide > h2 {
+  position: absolute;
+  left: -30%;
+  top: 35%;
+  right: 0%;              /* leaves space at the right */
+  margin: 0;
+  padding: 0.8em 1.3em;
+  color: white;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.72);
+  font-size: 1.5em;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.reveal #title-slide .quarto-title-block {
+  position: absolute;
+  top: 12%;
+  left: 6%;
+  right: auto;
+  width: 70%;
+  text-align: left;
+}
+
+.reveal #title-slide .quarto-title-block-header,
+.reveal #title-slide h1.title,
+.reveal #title-slide p.subtitle {
+  text-align: left;
+}
+
+.reveal #title-slide .quarto-title-author,
+.reveal #title-slide .author,
+.reveal #title-slide .institute,
+.reveal #title-slide .date {
+  text-align: left;
+}
+
+.reveal #title-slide .quarto-title-authors {
+  position: absolute;
+  left: 0%;       /* match .quarto-title-block's left value */
+  width: 70%;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  justify-content: flex-start !important;
+  text-align: left;
+}
+
+.reveal #title-slide .quarto-title-author {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-align: left;
+}
+
+.reveal #title-slide h1.title {
+  margin-left: 0;
+}
+
+strong {
+  color: #66ccff; /* light blue */
+}
+
+em {
+  color: #99cc99; /* light green */
+}
